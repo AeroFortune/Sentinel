@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "135529410696",
+    "project_id": "protecto-bf8a2",
+    "storage_bucket": "protecto-bf8a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135529410696:android:65f425c51162a52098af3d",
+        "android_client_info": {
+          "package_name": "com.proyecto.sentinel.sent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpDKyBU2jVyWlaDzyCljEzxrTpsaGfWO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135529410696:android:d54a7996b182707f98af3d",
+        "android_client_info": {
+          "package_name": "com.proyecto.sentinel.sentinel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpDKyBU2jVyWlaDzyCljEzxrTpsaGfWO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
