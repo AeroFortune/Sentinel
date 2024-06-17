@@ -180,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
                         UserData userData = snapshot.data as UserData;
-                        return Text("Bienvenido, ${userData.nombre}!", style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),);
+                        return Text("Bienvenido, ${userData.nombre}!", softWrap: true, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),);
                       } else {
                         return Text(snapshot.error.toString());
                       }
