@@ -29,12 +29,12 @@ class EventsTemplate extends StatelessWidget {
           margin: const EdgeInsets.all(5.0),
           color: color,
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Image(
                     image: AssetImage(imageEvent),
                     width: 100,
@@ -43,24 +43,24 @@ class EventsTemplate extends StatelessWidget {
                 ),
                 Text(
                   titleEvent,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   maxLines: 1,
                 ),
                 Text(
                   descEvent,
-                  style: TextStyle(fontSize: 13,),
+                  style: const TextStyle(fontSize: 13,),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                 ),
                 Padding(
-                  padding: EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      Icon(Icons.access_time_outlined),
+                      const Icon(Icons.access_time_outlined),
                       Text(
-                        " ${horaEvent}",
-                        style: TextStyle(
+                        " $horaEvent",
+                        style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
                         ),
