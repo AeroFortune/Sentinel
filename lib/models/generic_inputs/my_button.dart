@@ -9,9 +9,21 @@ class MyButton extends StatelessWidget {
   final IconData? buttonIcon;
   final double? buttonIconSize;
   final double? buttonRadius;
+  final Axis? direction;
   // Agregar requerimientos para: Shape, Color, Iconos
 
-  const MyButton({super.key, required this.onTap, required this.insertText, this.outlineButtonColor, this.buttonColor, this.buttonIcon, this.buttonIconSize, this.textSize, this.buttonRadius});
+  const MyButton({
+    super.key,
+    required this.onTap,
+    required this.insertText,
+    this.outlineButtonColor,
+    this.buttonColor,
+    this.buttonIcon,
+    this.buttonIconSize,
+    this.textSize,
+    this.buttonRadius,
+    this.direction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +46,7 @@ class MyButton extends StatelessWidget {
           child: Wrap(
             alignment: WrapAlignment.start,
             crossAxisAlignment: WrapCrossAlignment.center,
-            direction: Axis.vertical,
+            direction: direction ?? Axis.vertical,
             children: [
               Icon(
                 buttonIcon ?? Icons.info_outline_rounded,

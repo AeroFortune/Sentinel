@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:sentinel/screens/age_verification_page.dart';
 import 'package:sentinel/widget_tree.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -121,7 +123,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
             final pres = await SharedPreferences.getInstance();
             pres.setBool("first_time_started", true);
             if(!mounted)return;
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const WidgetTree() ) );
+            Navigator.pushReplacement(context, PageTransition(child: AgeVerificationPage(), type: PageTransitionType.fade ) );
           },
           child: const Text("Continuar"),
         ),

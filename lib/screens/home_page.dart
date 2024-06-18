@@ -6,7 +6,7 @@ import 'package:sentinel/helpers/user_repo.dart';
 import 'package:sentinel/models/generic_inputs/my_button.dart';
 import 'package:sentinel/models/user_data.dart';
 import 'package:sentinel/screens/content/content_introduction_page.dart';
-import 'package:sentinel/screens/login_register_page.dart';
+import 'package:sentinel/screens/login_page.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -20,37 +20,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final User? user = FirebaseAuthServices().currentUser;
 
-  @override
-  void initState(){
-    super.initState();
-  }
-
   Future<void> signOut() async {
     await FirebaseAuthServices().signOut();
   }
-
-
-  Widget _userUid(){
-    return const Text("Bienvenido!" ?? 'Error consiguiendo data.', style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),);
-  }
-
-  Widget _title(){
-    return const Text('Firebase Auth');
-  }
-
-  Widget _signOutButton(){
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          minimumSize: const Size(100,40)
-        ),
-        onPressed: signOut,
-        child: const Text('Sign Out'),
-    );
-  }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +58,9 @@ class _HomePageState extends State<HomePage> {
 
             children: <Widget>[
               const SizedBox(height: 50),
+
               // Botones en azul
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -115,6 +89,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 180),
 
               // Botones en amarillo
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -140,13 +115,13 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       MyButton(
-                          onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginRegisterPage())) },
+                          onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage())) },
                           insertText: "Acerca De"
                       ),
                       const SizedBox(height: 1),
                       MyButton(
                           buttonIcon: Icons.group,
-                          onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginRegisterPage())) },
+                          onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage())) },
                           insertText: "Créditos"
                       )
                     ],

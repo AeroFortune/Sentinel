@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sentinel/helpers/auth.dart';
 import 'package:sentinel/screens/home_page.dart';
-import 'package:sentinel/screens/login_register_page.dart';
+import 'package:sentinel/screens/login_page.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
@@ -19,7 +19,7 @@ class _WidgetTreeState extends State<WidgetTree> {
           if (snapshot.hasData) {
             return const HomePage();
           } else {
-            return const LoginRegisterPage();
+            return const LoginPage();
           }
         },
     );

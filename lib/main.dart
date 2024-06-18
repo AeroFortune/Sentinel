@@ -13,16 +13,18 @@ Future<void> main() async {
   );
   final prefs = await SharedPreferences.getInstance();
   final isStarted = prefs.getBool("first_time_started") ?? false;
+  final isAgeVerificated = prefs.getBool("age_verificated") ?? false;
 
 
-  runApp(MyApp( isStarted: isStarted ));
+  runApp(MyApp( isStarted: isStarted, isAgeVerificated: isAgeVerificated ));
 }
 
 class MyApp extends StatelessWidget {
 
   final bool isStarted;
+  final bool isAgeVerificated;
 
-  const MyApp({super.key, this.isStarted = false});
+  const MyApp({super.key, this.isStarted = false, this.isAgeVerificated = false});
 
   // This widget is the root of your application.
   @override
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellowAccent),
         useMaterial3: true,
       ),
-      home: isStarted? const WidgetTree() : const IntroductionPage(),
+      home: isStarted && isAgeVerificated ? const WidgetTree() : const IntroductionPage(),
     );
   }
 }

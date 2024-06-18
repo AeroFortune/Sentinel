@@ -7,7 +7,9 @@ class SentinelTextfield extends StatelessWidget {
   final IconData icon;
   final controller;
   final Function()? onTap;
+  final Function()? onEditingCompleted;
   final bool? readOnly;
+  final IconButton? suffixButton;
 
   const SentinelTextfield({
     super.key,
@@ -17,7 +19,9 @@ class SentinelTextfield extends StatelessWidget {
     required this.icon,
     required this.controller,
     this.onTap,
-    this.readOnly
+    this.readOnly,
+    this.suffixButton,
+    this.onEditingCompleted
   });
 
   @override
@@ -31,13 +35,14 @@ class SentinelTextfield extends StatelessWidget {
         readOnly: readOnly ?? false,
         decoration: InputDecoration(
             prefixIcon: Icon(icon),
+            suffixIcon: controller.text.length > 0 ? suffixButton : null,
             enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(5)),
               borderSide: BorderSide(color: Colors.black, width: 1)
             ),
             focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: Colors.redAccent, width: 3),
+              borderSide: BorderSide(color: Colors.lightBlue, width: 2),
             ),
             fillColor: Colors.blueGrey[50],
             filled: true,
