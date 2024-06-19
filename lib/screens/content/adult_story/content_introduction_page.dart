@@ -1,17 +1,19 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
+import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/models/generic_inputs/my_button.dart';
+import 'package:sentinel/screens/content/adult_story/content_page1_intermission_page.dart.dart';
+
+import 'package:sentinel/models/content_data.dart';
 
 
-class ContentIntroductionPage extends StatefulWidget {
-  const ContentIntroductionPage({super.key});
+class ContentIntroductionPage extends StatelessWidget {
 
-  @override
-  State<ContentIntroductionPage> createState() => _ContentIntroductionPageState();
-}
+  const ContentIntroductionPage({super.key, required this.age});
 
-class _ContentIntroductionPageState extends State<ContentIntroductionPage> {
+  final String textDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
-  String textDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+
+  final int age;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class _ContentIntroductionPageState extends State<ContentIntroductionPage> {
             ),
             const SizedBox(height: 20,),
             SizedBox(
-                child: Text(textDescription,
+                child: Text("${textDescription} | Tu edad es: ${age}",
                   style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -79,7 +81,21 @@ class _ContentIntroductionPageState extends State<ContentIntroductionPage> {
                           buttonIcon: Icons.gamepad,
                           buttonIconSize: 80,
                           buttonColor: Colors.green,
-                          onTap: () => print("Insertar navegación aqui."),
+                          onTap: () {
+
+
+                            // pasar edad idk
+
+                            ContentData contentData;
+
+                            return Navigator.push(
+                              context,
+                              PageTransition(
+                                child: ContentIntermissionPage(),
+                                type: PageTransitionType.fade,
+                              )
+                          );
+                          },
                           insertText: "Iniciar",
                           textSize: 29,
                       ),

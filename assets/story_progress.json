@@ -1,0 +1,138 @@
+{
+  "adult_stories": {
+    "adult_part1": {
+      "id": "0001",
+      "story_chapter_title": "El correo sospechoso",
+      "story_intermission_desc" : "Don Ramón, un jubilado de 70 años, vive solo en su casa y disfruta de pasar el tiempo navegando por internet y leyendo correos electrónicos de sus amigos y familiares. Una mañana, mientras revisa su bandeja de entrada, recibe un correo inesperado.",
+      "story_selection_desc": "El correo, supuestamente enviado por su banco, le informa que hay un problema con su cuenta y le pide que haga clic en un enlace para verificar su información.    ",
+      "choices": [
+        "Clic en el enlace y sigue las instrucciones que aparecen en la página web.",
+        "Duda de la autenticidad del correo y decide investigar",
+        "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "adult_part1_alt": {
+      "id": "0002",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "adult_part2": {
+      "id": "0003",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "adult_part2_alt": {
+      "id": "0004",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "adult_part3": {
+      "id": "0005",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "adult_part3_alt": {
+      "id": "0006",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "adult_epilogue": {
+      "id": "0007",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    }
+  },
+
+
+
+  "kid_stories": {
+    "kid_part1": {
+      "id": "1001",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "kid_part1_alt": {
+      "id": "1002",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "kid_part2": {
+      "id": "1003",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "kid_part2_alt": {
+      "id": "1004",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "kid_part3": {
+      "id": "1005",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "kid_part3_alt": {
+      "id": "1006",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    },
+    "kid_epilogue": {
+      "id": "1007",
+      "story_chapter_title": "",
+      "story_intermission_desc" : "",
+      "story_selection_desc": "",
+      "choices": ["One", "Two", "Three"],
+      "choice_selected": 0,
+      "unlocked": false
+    }
+  }
+}

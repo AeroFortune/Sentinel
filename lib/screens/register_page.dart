@@ -59,58 +59,62 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> createUserWithEmailAndPassword() async {
     try {
 
-      await FirebaseAuthServices().createUserWithEmailAndPassword(
-        email: _controllerEmail.text.trim(),
-        password: _controllerPassword.text.trim(),
-      );
-      addUserDetails(
-          FirebaseAuth.instance.currentUser!.uid,
-          _controllerName.text.trim(),
-          _controllerEmail.text.trim(),
-          _controllerDate.text.trim()
-      );
-      toastification.show(
-          context: context,
-          title: const Text("Exito!"),
-          description: const Text("Te has registrado con éxito. Bienvenido!"),
-          type: ToastificationType.success,
-          style: ToastificationStyle.flatColored,
-          autoCloseDuration: const Duration(seconds: 10)
-      );
-      Navigator.pushReplacement(
-          context,
-          PageTransition(
-            child: const HomePage(),
-            type: PageTransitionType.fade,
-          )
-      );
+      if (_controllerPassword.text.trim() != _controllerVerifyPassword.text.trim()) {
+        toastification.show(
+            context: context,
+            title: const Text("Error al registrarse!"),
+            description: const Text("Las contraseñas no coinciden."),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
+            autoCloseDuration: const Duration(seconds: 10)
+        );
+        return;
+      } if (_controllerPassword.text.trim() == "" || _controllerVerifyPassword.text.trim() == "" || _controllerDate.text.trim() == "" || _controllerEmail.text.trim() == "" || _controllerName.text.trim() == ""){
+        toastification.show(
+            context: context,
+            title: const Text("Error al registrarse!", style: TextStyle(fontWeight: FontWeight.bold)),
+            autoCloseDuration: const Duration(seconds: 10),
+            description: const Text("Uno o más campos no han sido llenados. \nPor favor llenarlos e re-intentar.", style: TextStyle(fontWeight: FontWeight.bold),),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored
+        );
+        return;
+      } else {
+        await FirebaseAuthServices().createUserWithEmailAndPassword(
+          email: _controllerEmail.text.trim(),
+          password: _controllerPassword.text.trim(),
+        );
+        addUserDetails(
+            FirebaseAuth.instance.currentUser!.uid,
+            _controllerName.text.trim(),
+            _controllerEmail.text.trim(),
+            _controllerDate.text.trim()
+        );
+        toastification.show(
+            context: context,
+            title: const Text("Exito!"),
+            description: const Text("Te has registrado con éxito. Bienvenido!"),
+            type: ToastificationType.success,
+            style: ToastificationStyle.flatColored,
+            autoCloseDuration: const Duration(seconds: 10)
+        );
+        Navigator.pushReplacement(
+            context,
+            PageTransition(
+              child: const HomePage(),
+              type: PageTransitionType.fade,
+            )
+        );
+      }
 
     } on FirebaseAuthException catch (e) {
       setState(() {
 
-        if (_controllerPassword.text.trim() != _controllerVerifyPassword.text.trim()) {
-          toastification.show(
-              context: context,
-              title: const Text("Error al registrarse!"),
-              description: const Text("Las contraseñas no coinciden."),
-              type: ToastificationType.error,
-              style: ToastificationStyle.flatColored,
-              autoCloseDuration: const Duration(seconds: 10)
-          );
+
 
           // Agregar validación de contraseñas
 
-        } if (_controllerPassword.text.trim() == "" || _controllerVerifyPassword.text.trim() == "" || _controllerDate.text.trim() == "" || _controllerEmail.text.trim() == "" || _controllerName.text.trim() == ""){
-          toastification.show(
-              context: context,
-              title: const Text("Error al registrarse!", style: TextStyle(fontWeight: FontWeight.bold)),
-              autoCloseDuration: const Duration(seconds: 10),
-              description: const Text("Uno o más campos no han sido llenados. \nPor favor llenarlos e re-intentar.", style: TextStyle(fontWeight: FontWeight.bold),),
-              type: ToastificationType.error,
-              style: ToastificationStyle.flatColored
-          );
-          return;
-        } if (e.code == "weak-password"){
+        if (e.code == "weak-password"){
           toastification.show(
               context: context,
               title: const Text("Error al registrarse!", style: TextStyle(fontWeight: FontWeight.bold)),

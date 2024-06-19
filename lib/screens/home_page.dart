@@ -1,13 +1,17 @@
+import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/helpers/auth.dart';
 import 'package:sentinel/helpers/user_repo.dart';
+import 'package:sentinel/models/content_data.dart';
 import 'package:sentinel/models/generic_inputs/my_button.dart';
 import 'package:sentinel/models/user_data.dart';
-import 'package:sentinel/screens/content/content_introduction_page.dart';
+import 'package:sentinel/screens/content/adult_story/content_introduction_page.dart';
 import 'package:sentinel/screens/login_page.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
+
+import 'content/adult_story/content_introduction_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,6 +25,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> signOut() async {
     await FirebaseAuthServices().signOut();
   }
+
+  var age;
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +69,14 @@ class _HomePageState extends State<HomePage> {
                         buttonIcon: Icons.play_circle,
                         buttonIconSize: 90,
                         onTap: () => {
+
+                          // Verificar edad aqui
+
+
                           Navigator.push(
                             context,
                             PageTransition(
-                                child: const ContentIntroductionPage(),
+                                child: ContentIntroductionPage(age: age,),
                                 type: PageTransitionType.bottomToTop,
                             )
                           )
@@ -144,7 +154,10 @@ class _HomePageState extends State<HomePage> {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
                         UserData userData = snapshot.data as UserData;
-                        return Text("Bienvenido, ${userData.nombre}!", softWrap: true, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),);
+
+                        age = DateTime.now().year - DateTime.parse(userData.fechaNac).year;
+
+                        return Text("Bienvenido, ${userData.nombre}! Y de edad de ${age}", softWrap: true, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),);
                       } else {
                         return Text(snapshot.error.toString());
                       }

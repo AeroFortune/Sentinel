@@ -56,15 +56,20 @@ class _LoginPageState extends State<LoginPage> {
               type: ToastificationType.error,
               style: ToastificationStyle.flatColored
           );
+          return;
         } if (e.code == "invalid-email") {
           toastification.show(
               context: context,
-              title: const Text("Error al iniciar sesión!", style: TextStyle(fontWeight: FontWeight.bold)),
+              title: const Text("Error al iniciar sesión!",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               autoCloseDuration: const Duration(seconds: 10),
-              description: const Text("El correo introducido no es valido.", style: TextStyle(fontWeight: FontWeight.bold),),
+              description: const Text("El correo introducido no es valido.",
+                style: TextStyle(fontWeight: FontWeight.bold),),
               type: ToastificationType.error,
               style: ToastificationStyle.flatColored
           );
+          return;
+        } else {
           toastification.show(
               context: context,
               title: const Text("Error al inciar sesión!"),
