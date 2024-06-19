@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/helpers/auth.dart';
 import 'package:sentinel/helpers/user_repo.dart';
@@ -18,7 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final User? user = FirebaseAuthServices().currentUser;
 
   Future<void> signOut() async {
     await FirebaseAuthServices().signOut();
@@ -27,44 +25,37 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
-        backgroundColor: Color(0xFF044389),
+        backgroundColor: const Color(0xFF044389),
         title: const Text("Menú Principal", textAlign: TextAlign.center, style: TextStyle(color:Colors.white ,fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
-
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
           Container(
             height: double.infinity,
-            color: Color(0xFF044389),
+            color: const Color(0xFF044389),
             child: WaveWidget(
                 config: CustomConfig(
-                    colors: [Color(0xFF044389), Color(0xFFFFFB8D)],
+                    colors: [const Color(0xFF044389), const Color(0xFFFFFB8D)],
                     durations: [5000, 5000],
                     heightPercentages: [-0.3, 0.40]),
-                size: Size.fromHeight(double.infinity),
-              backgroundColor: Color(0xFFFFFB8D),
+                size: const Size.fromHeight(double.infinity),
+              backgroundColor: const Color(0xFFFFFB8D),
               waveFrequency: 1,
               waveAmplitude: 1,
               wavePhase: 1000,
-
             ),
           ),
-
           Column(
-
             children: <Widget>[
               const SizedBox(height: 50),
-
               // Botones en azul
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 200,
                     height: 200,
                     child: MyButton(
@@ -75,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                             context,
                             PageTransition(
-                                child: ContentIntroductionPage(),
+                                child: const ContentIntroductionPage(),
                                 type: PageTransitionType.bottomToTop,
                             )
                           )
@@ -87,9 +78,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               const SizedBox(height: 180),
-
               // Botones en amarillo
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

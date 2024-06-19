@@ -17,27 +17,27 @@ class _AgeVerificationPageState extends State<AgeVerificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFB8D),
-        title: Text("Verificación de Edad", style: TextStyle(fontWeight: FontWeight.bold),),
+        backgroundColor: const Color(0xFFFFFB8D),
+        title: const Text("Verificación de Edad", style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
-      backgroundColor: Color(0xFFFFFB8D),
+      backgroundColor: const Color(0xFFFFFB8D),
       body: Container(
-        margin: EdgeInsets.only(top: 40, bottom: 0, left: 20, right: 20),
+        margin: const EdgeInsets.only(top: 40, bottom: 0, left: 20, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Por favor escoge tu edad dentro de este rango para continuar.",
+            const Text("Por favor escoge tu edad dentro de este rango para continuar.",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               softWrap: true,
               textAlign: TextAlign.center,),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Boton de edad: niño
-                Container(
+                SizedBox(
                   width: 300,
                   height: 200,
                   child: MyButton(
@@ -47,7 +47,7 @@ class _AgeVerificationPageState extends State<AgeVerificationPage> {
                       Navigator.push(
                           context,
                           PageTransition(
-                            child: AgeVerificationConfirmPage(),
+                            child: const AgeVerificationConfirmPage(),
                             type: PageTransitionType.bottomToTop,
                           )
                       );
@@ -56,9 +56,9 @@ class _AgeVerificationPageState extends State<AgeVerificationPage> {
                     textSize: 39,
                   ),
                 ),
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
                 // Boton de edad: adulto
-                Container(
+                SizedBox(
                   width: 300,
                   height: 200,
                   child: MyButton(
@@ -70,7 +70,7 @@ class _AgeVerificationPageState extends State<AgeVerificationPage> {
                           Navigator.pushReplacement(
                               context,
                               PageTransition(
-                                child: LoginPage(),
+                                child: const LoginPage(),
                                 type: PageTransitionType.bottomToTop,
                               )
                           );

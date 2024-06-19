@@ -22,7 +22,7 @@ class _AgeVerificationConfirmPageState extends State<AgeVerificationConfirmPage>
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("warning descripcion a x y z", textAlign: TextAlign.justify,),
+          const Text("warning descripcion a x y z", textAlign: TextAlign.justify,),
           Container(
             child: MyButton(
               onTap: () async {
@@ -31,7 +31,7 @@ class _AgeVerificationConfirmPageState extends State<AgeVerificationConfirmPage>
                 Navigator.pushReplacement(
                     context,
                     PageTransition(
-                      child: LoginPage(),
+                      child: const LoginPage(),
                       type: PageTransitionType.bottomToTop,
                     )
                 );

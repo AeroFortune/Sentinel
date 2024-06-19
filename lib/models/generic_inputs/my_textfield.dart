@@ -35,7 +35,6 @@ class SentinelTextfield extends StatelessWidget {
         readOnly: readOnly ?? false,
         decoration: InputDecoration(
             prefixIcon: Icon(icon),
-            suffixIcon: controller.text.length > 0 ? suffixButton : null,
             enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(5)),
               borderSide: BorderSide(color: Colors.black, width: 1)
@@ -44,6 +43,7 @@ class SentinelTextfield extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(8)),
               borderSide: BorderSide(color: Colors.lightBlue, width: 2),
             ),
+            suffixIcon: suffixButton,
             fillColor: Colors.blueGrey[50],
             filled: true,
             hintText: hintText,

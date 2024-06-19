@@ -27,7 +27,7 @@ class _ContentIntroductionPageState extends State<ContentIntroductionPage> {
         actions: [
           IconButton(
             onPressed: () => print("Testing if this works."),
-            icon: Icon(Icons.volume_up_outlined),
+            icon: const Icon(Icons.volume_up_outlined),
             color: Colors.white,
             tooltip: "Activar narrador",
           )
@@ -39,23 +39,23 @@ class _ContentIntroductionPageState extends State<ContentIntroductionPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            const SizedBox(
               height: 150,
               child: Placeholder(
                 strokeWidth: 1,
               ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             SizedBox(
                 child: Text(textDescription,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
 
                   ),
                   textAlign: TextAlign.justify,
                   softWrap: true,)), // descripcion
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             // image
             Column(
               children: [
@@ -63,7 +63,7 @@ class _ContentIntroductionPageState extends State<ContentIntroductionPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 180,
                       child: MyButton(
                           buttonIcon: Icons.timeline,
@@ -73,7 +73,7 @@ class _ContentIntroductionPageState extends State<ContentIntroductionPage> {
                           textSize: 29,
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: 180,
                       child: MyButton(
                           buttonIcon: Icons.gamepad,
