@@ -1,22 +1,26 @@
-import 'package:flutter/material.dart'; 
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/models/generic_inputs/my_button.dart';
-import 'package:sentinel/screens/content/adult_story/content_page1_intermission_page.dart.dart';
-
-import 'package:sentinel/models/content_data.dart';
+import 'package:sentinel/screens/content/adult_story/content_A_part1_intermission_page.dart';
 
 
-class ContentIntroductionPage extends StatelessWidget {
+class ACIntroductionPage extends StatefulWidget {
 
-  const ContentIntroductionPage({super.key, required this.age});
+  ACIntroductionPage({super.key});
+
+  @override
+  State<ACIntroductionPage> createState() => _ACIntroductionPageState();
+}
+
+class _ACIntroductionPageState extends State<ACIntroductionPage> {
 
   final String textDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
-
-  final int age;
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: const Color(0xFFFFFB8D),
       appBar: AppBar(
@@ -48,15 +52,17 @@ class ContentIntroductionPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20,),
-            SizedBox(
-                child: Text("${textDescription} | Tu edad es: ${age}",
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-
-                  ),
-                  textAlign: TextAlign.justify,
-                  softWrap: true,)), // descripcion
+            Container(
+              margin: EdgeInsets.only(left: 20, right: 20),
+              child: SizedBox(
+                  child: Text(textDescription,
+                    style: TextStyle(
+                        fontSize: 22,
+                        letterSpacing: -1
+                    ),
+                    textAlign: TextAlign.justify,
+                    softWrap: true,)),
+            ), // descripcion
             const SizedBox(height: 20,),
             // image
             Column(
@@ -70,7 +76,7 @@ class ContentIntroductionPage extends StatelessWidget {
                       child: MyButton(
                           buttonIcon: Icons.timeline,
                           buttonIconSize: 80,
-                          onTap: () => print("Funcionalidad aqui"),
+                          onTap: () => {},
                           insertText: "Timeline",
                           textSize: 29,
                       ),
@@ -82,17 +88,12 @@ class ContentIntroductionPage extends StatelessWidget {
                           buttonIconSize: 80,
                           buttonColor: Colors.green,
                           onTap: () {
-
-
-                            // pasar edad idk
-
-                            ContentData contentData;
-
+                            print(" ");
                             return Navigator.push(
                               context,
                               PageTransition(
-                                child: ContentIntermissionPage(),
-                                type: PageTransitionType.fade,
+                                child: ACIntermissionPage1(),
+                                type: PageTransitionType.leftToRightJoined, childCurrent: this.widget
                               )
                           );
                           },
