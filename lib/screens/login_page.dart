@@ -38,10 +38,11 @@ class _LoginPageState extends State<LoginPage> {
 
 
       await FirebaseAuthServices().signInWithEmailAndPassword(
-          context: context,
           email: _controllerEmail.text.trim(),
           password: _controllerPassword.text.trim()
       );
+
+
 
       // Verificar AQUI si el usuario esta verificado -- Si esto no sirve, probar en homepage
 
@@ -68,7 +69,29 @@ class _LoginPageState extends State<LoginPage> {
               style: ToastificationStyle.flatColored
           );
           return;
-        } if (e.code == "invalid-email") {
+        } if (e.code == "wrong-password") {
+          toastification.show(
+              context: context,
+              title: const Text("Error al iniciar sesión!", style: TextStyle(fontWeight: FontWeight.bold)),
+              autoCloseDuration: const Duration(seconds: 10),
+              description: const Text("Credenciales incorrectas, por favor intentar otra vez.", style: TextStyle(fontWeight: FontWeight.bold),),
+              type: ToastificationType.error,
+              style: ToastificationStyle.flatColored
+          );
+          return;
+        } if (e.code == "too-many-requests") {
+        toastification.show(
+            context: context,
+            title: const Text("Error al iniciar sesión!",
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            autoCloseDuration: const Duration(seconds: 10),
+            description: const Text("Esta cuenta ha sido temporalmente desactivada debido a un exceso de solicitudes.",
+              style: TextStyle(fontWeight: FontWeight.bold),),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored
+        );
+        return;
+      } if (e.code == "invalid-email") {
           toastification.show(
               context: context,
               title: const Text("Error al iniciar sesión!",
@@ -156,20 +179,24 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: [
           // Waves background
-          Container(
-            height: double.infinity,
-            color: const Color(0xFF044389),
-            child: WaveWidget(
-              config: CustomConfig(
-                  colors: [const Color(0xFF044389), const Color(0xFFFFFB8D)],
-                  durations: [5000, 5000],
-                  heightPercentages: [-0.3, 0.36]),
-              size: const Size.fromHeight(double.infinity),
-              backgroundColor: const Color(0xFFFFFB8D),
-              waveFrequency: 1,
-              waveAmplitude: 1,
-              wavePhase: 1000,
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Container(
+              height: MediaQuery.sizeOf(context).height,
+              color: const Color(0xFF044389),
+              child: WaveWidget(
+                config: CustomConfig(
+                    colors: [const Color(0xFF044389), const Color(0xFFFFFB8D)],
+                    durations: [5000, 5000],
+                    heightPercentages: [-0.3, 0.66]),
+                size: Size(MediaQuery.sizeOf(context).height, MediaQuery.sizeOf(context).width),
+                backgroundColor: const Color(0xFFFFFB8D),
+                waveFrequency: 1,
+                waveAmplitude: 1,
+                wavePhase: 1000,
 
+              ),
             ),
           ),
           // Contenido

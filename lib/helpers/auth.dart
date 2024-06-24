@@ -21,30 +21,14 @@ class FirebaseAuthServices{
 
 
   // sign in
-  Future<void> signInWithEmailAndPassword({
-    BuildContext? context,
+  Future<void> signInWithEmailAndPassword ({
     required String email,
     required String password,
   }) async {
-
-    bool status = checkVerificationStatus();
-
-    if (status == false) {
-      await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } else {
-      toastification.show(
-          context: context,
-          title: const Text("Error al iniciar sesión!", style: TextStyle(fontWeight: FontWeight.bold)),
-          autoCloseDuration: const Duration(seconds: 10),
-          description: const Text("La cuenta no existe o no esta verificada.", style: TextStyle(fontWeight: FontWeight.bold),),
-          type: ToastificationType.error,
-          style: ToastificationStyle.flatColored
-      );
-    }
-
+    await _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
   checkVerificationStatus(){

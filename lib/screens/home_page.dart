@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/helpers/auth.dart';
@@ -6,6 +7,8 @@ import 'package:sentinel/models/generic_inputs/my_button.dart';
 import 'package:sentinel/models/user_data.dart';
 import 'package:sentinel/screens/content/adult_story/content_A_introduction_page.dart';
 import 'package:sentinel/screens/login_page.dart';
+import 'package:sentinel/screens/register_verification_page.dart';
+import 'package:toastification/toastification.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -24,6 +27,30 @@ class _HomePageState extends State<HomePage> {
     await FirebaseAuthServices().signOut();
   }
 
+  Future<void> checkVerificationStatus() async {
+    FirebaseAuth.instance.currentUser?.reload();
+    final user = FirebaseAuth.instance.currentUser;
+    if (user!.emailVerified){
+      toastification.show(
+          context: context,
+          title: const Text("Error!", style: TextStyle(fontWeight: FontWeight.bold)),
+          autoCloseDuration: const Duration(seconds: 10),
+          description: const Text("Cuenta no verificada, por favor seguir los pasos para activarla.", style: TextStyle(fontWeight: FontWeight.bold),),
+          type: ToastificationType.error,
+          style: ToastificationStyle.flatColored
+      );
+      Navigator.push(
+          context,
+          PageTransition(
+            child: const RegisterVerificationPage(),
+            type: PageTransitionType.fade,
+          )
+      );
+    }
+
+
+  }
+
   var age;
 
   @override
@@ -38,19 +65,24 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Container(
-            height: double.infinity,
-            color: const Color(0xFF044389),
-            child: WaveWidget(
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Container(
+              height: MediaQuery.sizeOf(context).height,
+              color: const Color(0xFF044389),
+              child: WaveWidget(
                 config: CustomConfig(
                     colors: [const Color(0xFF044389), const Color(0xFFFFFB8D)],
                     durations: [5000, 5000],
-                    heightPercentages: [-0.3, 0.40]),
-                size: const Size.fromHeight(double.infinity),
-              backgroundColor: const Color(0xFFFFFB8D),
-              waveFrequency: 1,
-              waveAmplitude: 1,
-              wavePhase: 1000,
+                    heightPercentages: [-0.3, 0.66]),
+                size: Size(MediaQuery.sizeOf(context).height, MediaQuery.sizeOf(context).width),
+                backgroundColor: const Color(0xFFFFFB8D),
+                waveFrequency: 1,
+                waveAmplitude: 1,
+                wavePhase: 1000,
+
+              ),
             ),
           ),
           Column(

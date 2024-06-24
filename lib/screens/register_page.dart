@@ -221,7 +221,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: const Color(0xFFFFFB8D),
       appBar: AppBar(
         backgroundColor: const Color(0xFF044389),
@@ -248,20 +247,24 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       body: Stack(
         children: [
-          Container(
-            height: double.infinity,
-            color: const Color(0xFF044389),
-            child: WaveWidget(
-              config: CustomConfig(
-                  colors: [const Color(0xFF044389), const Color(0xFFFFFB8D)],
-                  durations: [5000, 5000],
-                  heightPercentages: [-0.3, 0.40]),
-              size: const Size.fromHeight(double.infinity),
-              backgroundColor: const Color(0xFFFFFB8D),
-              waveFrequency: 1,
-              waveAmplitude: 1,
-              wavePhase: 1000,
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Container(
+              height: MediaQuery.sizeOf(context).height,
+              color: const Color(0xFF044389),
+              child: WaveWidget(
+                config: CustomConfig(
+                    colors: [const Color(0xFF044389), const Color(0xFFFFFB8D)],
+                    durations: [5000, 5000],
+                    heightPercentages: [-0.3, 0.66]),
+                size: Size(MediaQuery.sizeOf(context).height, MediaQuery.sizeOf(context).width),
+                backgroundColor: const Color(0xFFFFFB8D),
+                waveFrequency: 1,
+                waveAmplitude: 1,
+                wavePhase: 1000,
 
+              ),
             ),
           ),
           SingleChildScrollView(
