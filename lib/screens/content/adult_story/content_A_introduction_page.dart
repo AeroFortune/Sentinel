@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/models/generic_inputs/my_button.dart';
 import 'package:sentinel/screens/content/adult_story/content_A_part1_intermission_page.dart';
@@ -8,7 +7,7 @@ import 'package:sentinel/screens/content/adult_story/content_A_part1_intermissio
 
 class ACIntroductionPage extends StatefulWidget {
 
-  ACIntroductionPage({super.key});
+  const ACIntroductionPage({super.key});
 
   @override
   State<ACIntroductionPage> createState() => _ACIntroductionPageState();
@@ -53,10 +52,10 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
             ),
             const SizedBox(height: 20,),
             Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 20, right: 20),
               child: SizedBox(
                   child: Text(textDescription,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 22,
                         letterSpacing: -1
                     ),
@@ -92,8 +91,8 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
                             return Navigator.push(
                               context,
                               PageTransition(
-                                child: ACIntermissionPage1(),
-                                type: PageTransitionType.leftToRightJoined, childCurrent: this.widget
+                                child: const ACIntermissionPage1(),
+                                type: PageTransitionType.leftToRightJoined, childCurrent: widget
                               )
                           );
                           },

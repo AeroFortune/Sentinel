@@ -22,7 +22,7 @@ class KCIntermissionPage3 extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   PageTransition(
-                      child: ACIntroductionPage(),
+                      child: const ACIntroductionPage(),
                       type: PageTransitionType.fade
                   )
               );
@@ -44,7 +44,7 @@ class KCIntermissionPage3 extends StatelessWidget {
                 strokeWidth: 1,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
               child: const Text(
@@ -57,7 +57,7 @@ class KCIntermissionPage3 extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               width: 300,
               child:

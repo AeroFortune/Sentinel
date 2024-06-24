@@ -9,6 +9,8 @@ import 'package:sentinel/screens/login_page.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
+import 'content/kid_story/content_K_introduction_page.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -26,6 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF044389),
@@ -63,28 +66,26 @@ class _HomePageState extends State<HomePage> {
                     child: MyButton(
                         outlineButtonColor: Colors.white        ,
                         buttonIcon: Icons.play_circle,
-                        buttonIconSize: 90,
+                        buttonIconSize: 100,
                         onTap: () => {
                           // Verificar edad aqui
                           if (age < 18) {
-                            // Navigator.push(
-                            //     context,
-                            //     PageTransition(
-                            //       child: KCIntroductionPage(),
-                            //       type: PageTransitionType.bottomToTop,
-                            //     )
-                            // )
-                            print("Llevar al usuario a pantalla de niños")
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                  child: const KCIntroductionPage(),
+                                  type: PageTransitionType.bottomToTop,
+                                )
+                            )
                           } else {
                             Navigator.push(
                                 context,
                                 PageTransition(
-                                  child: ACIntroductionPage(),
+                                  child: const ACIntroductionPage(),
                                   type: PageTransitionType.bottomToTop,
                                 )
                             )
                           }
-
                         },
                         insertText: "Empezar",
                         textSize: 30,
@@ -162,7 +163,7 @@ class _HomePageState extends State<HomePage> {
 
                         age = DateTime.now().year - DateTime.parse(userData.fechaNac).year;
 
-                        return Text("Bienvenido, ${userData.nombre}! Y de edad de $age", softWrap: true, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),);
+                        return Text("Bienvenido, ${userData.nombre}!", softWrap: true, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),);
                       } else {
                         return Text(snapshot.error.toString());
                       }

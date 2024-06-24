@@ -9,7 +9,7 @@ class SentinelTextfield extends StatelessWidget {
   final Function()? onTap;
   final Function()? onEditingCompleted;
   final bool? readOnly;
-  final IconButton? suffixButton;
+  final Widget? suffixButton;
 
   const SentinelTextfield({
     super.key,

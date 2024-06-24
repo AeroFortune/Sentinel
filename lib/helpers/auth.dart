@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:toastification/toastification.dart';
+
 
 
 class FirebaseAuthServices{
@@ -19,13 +22,39 @@ class FirebaseAuthServices{
 
   // sign in
   Future<void> signInWithEmailAndPassword({
+    BuildContext? context,
     required String email,
     required String password,
   }) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+
+    bool status = checkVerificationStatus();
+
+    if (status == false) {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } else {
+      toastification.show(
+          context: context,
+          title: const Text("Error al iniciar sesión!", style: TextStyle(fontWeight: FontWeight.bold)),
+          autoCloseDuration: const Duration(seconds: 10),
+          description: const Text("La cuenta no existe o no esta verificada.", style: TextStyle(fontWeight: FontWeight.bold),),
+          type: ToastificationType.error,
+          style: ToastificationStyle.flatColored
+      );
+    }
+
+  }
+
+  checkVerificationStatus(){
+
+    if (currentUser?.emailVerified == false){
+      return false;
+    } else {
+      return true;
+    }
+
   }
 
   // sign up
@@ -37,6 +66,16 @@ class FirebaseAuthServices{
       email: email,
       password: password,
     );
+  }
+
+  Future<void> sendEmailVerification() async {
+
+    try {
+      await _firebaseAuth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e)  {
+      print(e.message);
+    }
+
   }
 
 

@@ -18,7 +18,7 @@ class KCSelectionPage2 extends StatelessWidget {
             Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child: KCIntroductionPage(),
+                    child: const KCIntroductionPage(),
                     type: PageTransitionType.fade
                 )
             );
@@ -40,9 +40,9 @@ class KCSelectionPage2 extends StatelessWidget {
                 strokeWidth: 1,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 20, right: 20),
               child: const Text(
                 "El correo, supuestamente enviado por su banco, le informa que hay un problema con su cuenta y le pide que haga clic en un enlace para verificar su información.",
                 textAlign: TextAlign.justify,
@@ -53,7 +53,7 @@ class KCSelectionPage2 extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             const Text(
               "Que hara Don Ramon?",
               textAlign: TextAlign.center,
@@ -64,7 +64,7 @@ class KCSelectionPage2 extends StatelessWidget {
                   letterSpacing: -1
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             SizedBox(
               width: 300,
               child:
@@ -85,7 +85,7 @@ class KCSelectionPage2 extends StatelessWidget {
                   insertText: "Clic en el enlace"
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             SizedBox(
               width: 300,
               child:

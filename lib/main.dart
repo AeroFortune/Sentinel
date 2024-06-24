@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sentinel/screens/introduction_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'widget_tree.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'helpers/firebase_options.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellowAccent),
         useMaterial3: true,
       ),
-      home: isStarted && isAgeVerificated ? const WidgetTree() : const IntroductionPage(),
+      home: isStarted && isAgeVerificated ? ShowCaseWidget(builder: (context) => const WidgetTree()) : ShowCaseWidget(builder: (context) => const IntroductionPage()),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:sentinel/screens/age_verification_page.dart';
+import 'package:sentinel/screens/age_warning_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -26,18 +26,23 @@ class IntroPageInfo{
 class IntroPageItems{
   List<IntroPageInfo> itemPages = [
     IntroPageInfo(
-        title: "Bienvenido",
-        description: "En esta aplicación podras encontrar actividades cortas que te enseñaran sobre lecciones de seguridad en linea.",
+        title: "Bienvenido!",
+        description: "Bienvenido a Sentinel! Este aplicación podras encontrar actividades educativas que te enseñaran sobre lecciones de seguridad de información.",
         image: "image"
     ),
     IntroPageInfo(
-        title: "wea",
-        description: "asdasd",
+        title: "Para todas las edades",
+        description: "Sentinel te proveerá diferente contenido dado tu edad. Así podras entender algo que le pasaría a alguien de tu edad.",
         image: "image"
     ),
     IntroPageInfo(
-        title: "wea",
-        description: "a",
+        title: "No estas solo!",
+        description: "Will te guiará en la aplicación! Pero Will necesitará que prestes atención a sus consejos, woof!",
+        image: "image"
+    ),
+    IntroPageInfo(
+        title: "Recuerda",
+        description: "Sigue lo que te dicen! Este mensaje y el siguiente solo aparecen una vez.",
         image: "image"
     ),
   ];
@@ -97,9 +102,10 @@ class _IntroductionPageState extends State<IntroductionPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(_itemController.itemPages[index].image),
-                  Text(_itemController.itemPages[index].title),
+                  Text(_itemController.itemPages[index].title,
+                    style: const TextStyle(fontSize: 28, color: Colors.grey), textAlign: TextAlign.center,),
                   Text(_itemController.itemPages[index].description,
-                        style: const TextStyle(fontSize: 19, color: Colors.grey), textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 19, color: Colors.grey), textAlign: TextAlign.justify,
                       ),
 
                 ],
@@ -122,7 +128,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
             final pres = await SharedPreferences.getInstance();
             pres.setBool("first_time_started", true);
             if(!mounted)return;
-            Navigator.pushReplacement(context, PageTransition(child: const AgeVerificationPage(), type: PageTransitionType.fade ) );
+            Navigator.pushReplacement(context, PageTransition(child: const AgeWarningPage(), type: PageTransitionType.fade ) );
           },
           child: const Text("Continuar"),
         ),

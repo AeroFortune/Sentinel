@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/models/generic_inputs/my_button.dart';
-import 'package:sentinel/screens/age_verification_confirm_page.dart';
+import 'package:sentinel/screens/age_warning_confirm_page.dart';
 import 'package:sentinel/screens/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
-class AgeVerificationPage extends StatefulWidget {
-  const AgeVerificationPage({super.key});
+class AgeWarningPage extends StatefulWidget {
+  const AgeWarningPage({super.key});
 
   @override
-  State<AgeVerificationPage> createState() => _AgeVerificationPageState();
+  State<AgeWarningPage> createState() => _AgeWarningPageState();
 }
 
-class _AgeVerificationPageState extends State<AgeVerificationPage> {
+class _AgeWarningPageState extends State<AgeWarningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFFFB8D),
-        title: const Text("Verificación de Edad", style: TextStyle(fontWeight: FontWeight.bold),),
+        backgroundColor: const Color(0xFF044389),
+        title: const Text("Aviso", textAlign: TextAlign.center, style: TextStyle(color:Colors.white ,fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
       backgroundColor: const Color(0xFFFFFB8D),
@@ -27,10 +28,10 @@ class _AgeVerificationPageState extends State<AgeVerificationPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text("Por favor escoge tu edad dentro de este rango para continuar.",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            const Text("Esta aplicación puede ser compleja de navegar. Por favor lee cuidadosamente. Esta página es solo un aviso! \nLo que escojas aqui no importará o afectará el usaje general de la aplicación.",
+              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
               softWrap: true,
-              textAlign: TextAlign.center,),
+              textAlign: TextAlign.justify,),
             const SizedBox(height: 20,),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,7 +48,7 @@ class _AgeVerificationPageState extends State<AgeVerificationPage> {
                       Navigator.push(
                           context,
                           PageTransition(
-                            child: const AgeVerificationConfirmPage(),
+                            child: const AgeWarningConfirmPage(),
                             type: PageTransitionType.bottomToTop,
                           )
                       );
@@ -70,7 +71,7 @@ class _AgeVerificationPageState extends State<AgeVerificationPage> {
                           Navigator.pushReplacement(
                               context,
                               PageTransition(
-                                child: const LoginPage(),
+                                child: ShowCaseWidget(builder: (context) => const LoginPage()),
                                 type: PageTransitionType.bottomToTop,
                               )
                           );

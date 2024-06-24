@@ -4,13 +4,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:sentinel/models/generic_inputs/my_button.dart';
-import 'package:sentinel/screens/home_page.dart';
 import 'package:sentinel/screens/login_page.dart';
+import 'package:sentinel/screens/register_verification_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:toastification/toastification.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
+import 'package:sentinel/models/showcase_widget.dart';
 import '../helpers/auth.dart';
 import '../models/generic_inputs/my_textfield.dart';
 
@@ -38,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
         context: context,
         initialDate: DateTime(2000, 1, 1),
         firstDate: DateTime(1900),
-        lastDate: DateTime(2100)
+        lastDate: DateTime(2023)
     );
 
     setState(() {
@@ -93,15 +97,15 @@ class _RegisterPageState extends State<RegisterPage> {
         toastification.show(
             context: context,
             title: const Text("Exito!"),
-            description: const Text("Te has registrado con éxito. Bienvenido!"),
+            description: const Text("Te has registrado con éxito. Por favor lea los siguientes pasos."),
             type: ToastificationType.success,
             style: ToastificationStyle.flatColored,
             autoCloseDuration: const Duration(seconds: 10)
         );
-        Navigator.pushReplacement(
+        Navigator.push(
             context,
             PageTransition(
-              child: const HomePage(),
+              child: const RegisterVerificationPage(),
               type: PageTransitionType.fade,
             )
         );
@@ -170,20 +174,76 @@ class _RegisterPageState extends State<RegisterPage> {
 
   }
 
+  Future<void> getShowcaseStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final showcaseDone = prefs.getBool("register_showcase_is_passed") ?? false;
+
+    if (showcaseDone == false){
+      ShowCaseWidget.of(context).startShowCase([
+        _zeroRegisterKey,
+        _oneRegisterKey,
+        _twoRegisterKey,
+        _threeRegisterKey,
+        _fourRegisterKey,
+        _fiveRegisterKey,
+        _sixRegisterKey,
+        _sevenRegisterKey]);
+      prefs.setBool("register_showcase_is_passed", true);
+    }
+  }
+
   bool spoilerPass = true;
   bool spoilerPassC = true;
+
+  static final GlobalKey _zeroRegisterKey = GlobalKey();
+  static final GlobalKey _oneRegisterKey = GlobalKey();
+  static final GlobalKey _twoRegisterKey = GlobalKey();
+  static final GlobalKey _threeRegisterKey = GlobalKey();
+  static final GlobalKey _fourRegisterKey = GlobalKey();
+  static final GlobalKey _fiveRegisterKey = GlobalKey();
+  static final GlobalKey _sixRegisterKey = GlobalKey();
+  static final GlobalKey _sevenRegisterKey = GlobalKey();
+  static final GlobalKey _loopRegisterKey = GlobalKey();
 
   // Main
 
   @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 1), () => WidgetsBinding.instance.addPostFrameCallback((_) {
+      getShowcaseStatus();
+    }));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: const Color(0xFFFFFB8D),
       appBar: AppBar(
         backgroundColor: const Color(0xFF044389),
-
         centerTitle: true,
+        actions: [
+          CustomShowcaseWidget(
+              globalKey: _RegisterPageState._loopRegisterKey,
+              description: "Si te perdiste o necesitas que te diga esto otra vez, solo presiona aqui!",
+              child: IconButton(
+                  onPressed: () => ShowCaseWidget.of(context).startShowCase([
+                    _RegisterPageState._zeroRegisterKey,
+                    _RegisterPageState._oneRegisterKey,
+                    _RegisterPageState._twoRegisterKey,
+                    _RegisterPageState._threeRegisterKey,
+                    _RegisterPageState._fourRegisterKey,
+                    _RegisterPageState._fiveRegisterKey,
+                    _RegisterPageState._sixRegisterKey,
+                    _RegisterPageState._sevenRegisterKey,
+                    _RegisterPageState._loopRegisterKey
+                  ]),
+                  icon: Icon(Icons.help), color: Colors.white,))
+        ],
         //title: Text("Registro de Cuenta", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
       body: Stack(
@@ -212,71 +272,128 @@ class _RegisterPageState extends State<RegisterPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text("Registrarse", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white), ),
-                  const SizedBox(height: 10,),
-                  SentinelTextfield(hintText: "Nombre", obscureText: false, icon: Icons.font_download, controller: _controllerName,
-                    suffixButton: IconButton(
-                    onPressed: _controllerName.clear,
-                    icon: const Icon(Icons.clear),
-                  ),),
-                  SentinelTextfield(hintText: "Email", obscureText: false, icon: Icons.person, controller: _controllerEmail,
-                    suffixButton: IconButton(
-                    onPressed: _controllerEmail.clear,
-                    icon: const Icon(Icons.clear),
-                  ),),
-                  SentinelTextfield(hintText: "Contraseña", obscureText: spoilerPass, icon: Icons.key, controller: _controllerPassword,
-                    suffixButton: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            spoilerPass = !spoilerPass;
-                          });
-                        },
 
-                        icon: const Icon(Icons.remove_red_eye),
+                  CustomShowcaseWidget(
+                    globalKey:  _RegisterPageState._zeroRegisterKey,
+                      description: "Esta es la pantalla de registro! Necesitaras crear una cuenta para acceder a las funciones principales, woof!",
+                      child: const Text("Registrarse", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white), )
+                  ),
+
+
+                  const SizedBox(height: 10,),
+
+
+                  CustomShowcaseWidget(
+                    globalKey:  _RegisterPageState._oneRegisterKey,
+                    description: "Deberas poner tu nombre aqui, woof!",
+                    child: SentinelTextfield(hintText: "Nombre", obscureText: false, icon: Icons.person, controller: _controllerName,
+                      suffixButton: IconButton(
+                      onPressed: _controllerName.clear,
+                      icon: const Icon(Icons.clear),
+                    ),),
+                  ),
+
+
+                  CustomShowcaseWidget(
+                    globalKey:  _RegisterPageState._twoRegisterKey,
+                    description: "Después va tu email! Este es super importante ya que es lo que usaras para ingresar después, asi que recuerdalo bien! Woof!",
+                    child: SentinelTextfield(hintText: "Email", obscureText: false, icon: Icons.mail, controller: _controllerEmail,
+                      suffixButton: IconButton(
+                      onPressed: _controllerEmail.clear,
+                      icon: const Icon(Icons.clear),
+                    ),),
+                  ),
+
+
+                  CustomShowcaseWidget(
+                    globalKey:  _RegisterPageState._threeRegisterKey,
+                    description: "Aqui va tu credencial principal, tu contraseña! Asegurate de hacerla muy segura! Woof!",
+                    child: SentinelTextfield(hintText: "Contraseña", obscureText: spoilerPass, icon: Icons.key, controller: _controllerPassword,
+                      suffixButton: CustomShowcaseWidget(
+                        globalKey:  _RegisterPageState._fourRegisterKey,
+                        description: "Y si quieres revisar que tu contraseña sea lo que escribiste, presiona aqui para revelarla! Cuidado alguien te mira, woof!",
+                        child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                spoilerPass = !spoilerPass;
+                              });
+                            },
+
+                            icon: const Icon(Icons.remove_red_eye),
+                        ),
+                      ),
                     ),
                   ),
-                  SentinelTextfield(
-                      hintText: "Verificar contraseña",
-                      obscureText: spoilerPassC,
-                      icon: Icons.vpn_key_outlined,
-                      controller: _controllerVerifyPassword,
-                      suffixButton: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            spoilerPassC = !spoilerPassC;
-                          });
-                        },
-                        icon: const Icon(Icons.remove_red_eye),
-                      ),
+
+
+                  CustomShowcaseWidget(
+                    globalKey:  _RegisterPageState._fiveRegisterKey,
+                    description: "Es importante que verifiques tu contraseña! Esto para saber si las estas escribiendo bien! Woof!",
+                    child: SentinelTextfield(
+                        hintText: "Verificar contraseña",
+                        obscureText: spoilerPassC,
+                        icon: Icons.vpn_key_outlined,
+                        controller: _controllerVerifyPassword,
+                        suffixButton: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              spoilerPassC = !spoilerPassC;
+                            });
+                          },
+                          icon: const Icon(Icons.remove_red_eye),
+                        ),
+                    ),
                   ),
-                  SentinelTextfield(
-                    hintText: "Fecha de nacimiento",
-                    obscureText: false,
-                    icon: Icons.font_download,
-                    controller: _controllerDate,
-                    readOnly: true,
-                    onTap: (){
-                      _selectDate();
-                    },
-                    suffixButton: IconButton(
-                      onPressed: _controllerDate.clear,
-                      icon: const Icon(Icons.clear),
+
+
+                  CustomShowcaseWidget(
+                    globalKey:  _RegisterPageState._sixRegisterKey,
+                    description: "Finalmente, escoge tu fecha de nacimiento! Esto es importante, ya que afectará el contenido que veas! Escoge bien!",
+                    child: SentinelTextfield(
+                      hintText: "Fecha de nacimiento",
+                      obscureText: false,
+                      icon: Icons.date_range,
+                      controller: _controllerDate,
+                      readOnly: true,
+                      onTap: (){
+                        _selectDate();
+                      },
+                      suffixButton: IconButton(
+                        onPressed: _controllerDate.clear,
+                        icon: const Icon(Icons.clear),
+                      ),
                     ),
                   ),
 
                   const SizedBox(height: 20,),
 
-                  SizedBox(
-                    width: 322,
-                    child: MyButton(
-                        direction: Axis.horizontal,
-                        buttonIcon: Icons.app_registration,
-                        buttonIconSize: 40,
-                        textSize: 24,
-                        onTap: () {
-                          createUserWithEmailAndPassword();
-                        },
-                        insertText: "Registrarse",
+                  CustomShowcaseWidget(
+                    globalKey:  _RegisterPageState._sevenRegisterKey,
+                    description: "Finalmente, presiona aqui para enviar tu solicitud de registro, woof!",
+                    child: SizedBox(
+                      width: 322,
+                      child: MyButton(
+                          direction: Axis.horizontal,
+                          buttonIcon: Icons.app_registration,
+                          buttonIconSize: 40,
+                          textSize: 24,
+                          onTap: () {
+
+                            QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.confirm,
+                              title: "Advertencia",
+                              text: "Asegurate que tus datos esten correctos. Tu fecha de nacimiento afectará el contenido que veas. Deseas continuar?",
+                              confirmBtnColor: const Color(0xFF044389),
+                              confirmBtnText: "Continuar",
+                              cancelBtnText: "Cancelar",
+                              onConfirmBtnTap: () => createUserWithEmailAndPassword()
+                            );
+
+
+                          },
+                          insertText: "Registrarse",
+                      ),
                     ),
                   ),
                   const SizedBox(height: 3,),
@@ -288,10 +405,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       textSize: 24,
                       direction: Axis.horizontal,
                       onTap: () {
+
                         Navigator.pushReplacement(
                             context,
                             PageTransition(
-                              child: const LoginPage(),
+                              child: ShowCaseWidget(builder: (context) => const LoginPage()),
                               type: PageTransitionType.fade,
                             )
                         );

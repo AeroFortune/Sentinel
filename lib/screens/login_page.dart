@@ -4,12 +4,18 @@ import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/helpers/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sentinel/models/generic_inputs/my_textfield.dart';
+import 'package:sentinel/models/showcase_widget.dart';
 import 'package:sentinel/screens/register_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:toastification/toastification.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../models/generic_inputs/my_button.dart';
+
+
 
 
 class LoginPage extends StatefulWidget {
@@ -26,15 +32,21 @@ class _LoginPageState extends State<LoginPage> {
   // TODO: Probablemente separar registro en su propia pantalla? Si le puedo poner una animación a esta entonces no
   // TODO: Importa though.
 
-  final TextEditingController _controllerEmail = TextEditingController();
-  final TextEditingController _controllerPassword = TextEditingController();
+
 
   Future<void> signInWithEmailAndPassword() async {
     try {
+
+
       await FirebaseAuthServices().signInWithEmailAndPassword(
+          context: context,
           email: _controllerEmail.text.trim(),
           password: _controllerPassword.text.trim()
       );
+
+      // Verificar AQUI si el usuario esta verificado -- Si esto no sirve, probar en homepage
+
+
     } on FirebaseAuthException catch (e) {
       setState(() {
         if (_controllerPassword.text.trim() == "" || _controllerEmail.text.trim() == "" ){
@@ -86,46 +98,61 @@ class _LoginPageState extends State<LoginPage> {
   }
 
 
-  Widget _title(){
-    return const Text('Firebase Auth Test');
+
+  Future<void> getShowcaseStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final showcaseDone = prefs.getBool("login_showcase_is_passed") ?? false;
+
+    if (showcaseDone == false){
+      ShowCaseWidget.of(context).startShowCase([_zeroLogin, _oneLogin, _twoLogin, _threeLogin]);
+      prefs.setBool("login_showcase_is_passed", true);
+    }
   }
 
+  static final GlobalKey _zeroLogin = GlobalKey();
+  static final GlobalKey _oneLogin = GlobalKey();
+  static final GlobalKey _twoLogin = GlobalKey();
+  static final GlobalKey _threeLogin = GlobalKey();
+  static final GlobalKey _fourLogin = GlobalKey();
 
-  // quitar esto
-  Widget _submitButton(){
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * .8,
-      height: MediaQuery.of(context).size.height * .075,
-      child: ElevatedButton(
-        onPressed: signInWithEmailAndPassword, // estructurar esto para mostrar snackbars
-        child: const Text('Iniciar Sesión', style: TextStyle( fontSize: 24),),
-      ),
-    );
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 1), () => WidgetsBinding.instance.addPostFrameCallback((_) {
+      getShowcaseStatus();
+    }));
+    super.initState();
   }
 
-  Widget _loginOrRegisterButton(){
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * .8,
-      height: MediaQuery.of(context).size.height * .075,
-      child: ElevatedButton(
-          onPressed: (){
-            setState(() {
-              isLogin = !isLogin;
-            });
-          },
-          child: Text(isLogin ? 'No tienes cuenta?' : 'Ya tienes cuenta?', style: const TextStyle( fontSize: 24),)
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
+
+
+    Future.delayed(Duration.zero, () => WidgetsBinding.instance.addPostFrameCallback((_) {
+      getShowcaseStatus();
+    }));
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: const Color(0xFFFFFB8D),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: const Color(0xFF044389),
+        actions: [
+          CustomShowcaseWidget(
+              globalKey: _fourLogin,
+              description: "Si te perdiste o necesitas que te diga esto otra vez, solo presiona aqui!",
+              child: IconButton(
+                  onPressed: () => ShowCaseWidget.of(context).startShowCase([
+                    _LoginPageState._zeroLogin,
+                    _LoginPageState._oneLogin,
+                    _LoginPageState._twoLogin,
+                    _LoginPageState._threeLogin]),
+                  icon: Icon(Icons.help), color: Colors.white))
+        ],
       ),
       body: Stack(
         children: [
@@ -137,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
               config: CustomConfig(
                   colors: [const Color(0xFF044389), const Color(0xFFFFFB8D)],
                   durations: [5000, 5000],
-                  heightPercentages: [-0.3, 0.30]),
+                  heightPercentages: [-0.3, 0.36]),
               size: const Size.fromHeight(double.infinity),
               backgroundColor: const Color(0xFFFFFB8D),
               waveFrequency: 1,
@@ -148,69 +175,102 @@ class _LoginPageState extends State<LoginPage> {
           ),
           // Contenido
           SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 100),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text("Iniciar Sesión", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white), ),
-                const SizedBox(height: 50,),
-                SentinelTextfield(hintText: "Usuario", obscureText: false, icon: Icons.person, controller: _controllerEmail,
-                  suffixButton: IconButton(
-                  onPressed: _controllerEmail.clear,
-                  icon: const Icon(Icons.clear),
-                  ),
-                ),
-                SentinelTextfield(hintText: "Contraseña", obscureText: true, icon: Icons.key, controller: _controllerPassword,
-                  suffixButton: IconButton(
-                    onPressed: _controllerPassword.clear,
-                    icon: const Icon(Icons.clear),
-                  ),),
+            scrollDirection: Axis.vertical,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
 
-                const SizedBox(height: 10,),
-                SizedBox(
-                  width: 322,
-                  child: MyButton(
-                    buttonIcon: Icons.login,
-                    buttonIconSize: 40,
-                    textSize: 24,
-                    direction: Axis.horizontal,
-                    onTap: () {
-                      signInWithEmailAndPassword();
-                    },
-                    insertText: "Iniciar Sesión",
+                  CustomShowcaseWidget(
+                      globalKey: _LoginPageState._zeroLogin,
+                      title: "Bienvenido!",
+                      description: "Hola, soy Will, woof! Para empezar, te estaré mostrando brevemente varias partes de esta pantalla!",
+                      child: const Image(
+                        image: AssetImage('assets/ssi_logo.png'),
+                        width: 130,
+                      ),),
+
+                  const Text("Sentinel", textAlign: TextAlign.center, style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white), ),
+                  const Text("Bienvenido, por favor inicia sesión.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white), ),
+                  const SizedBox(height: 10,),
+
+                  CustomShowcaseWidget(
+                    title: "Datos de sesión",
+                    globalKey: _LoginPageState._oneLogin,
+                    description: "Bienvenido a la aplicación! Si previamente ya tenias una cuenta, por favor ingresa los datos.",
+                    child: Container(
+                      child: SentinelTextfield(hintText: "Usuario", obscureText: false, icon: Icons.person, controller: _controllerEmail,
+                        suffixButton: IconButton(
+                        onPressed: _controllerEmail.clear,
+                        icon: const Icon(Icons.clear),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10,),
-                SizedBox(
-                  width: 322,
-                  child: MyButton(
-                    buttonIcon: Icons.add_reaction_outlined,
-                    buttonIconSize: 40,
-                    textSize: 24,
-                    direction: Axis.horizontal,
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          PageTransition(
-                            child: const RegisterPage(),
-                            type: PageTransitionType.fade,
-                          )
-                      );
-                    },
-                    insertText: "¿No tienes cuenta?",
+                  SentinelTextfield(hintText: "Contraseña", obscureText: true, icon: Icons.key, controller: _controllerPassword,
+                    suffixButton: IconButton(
+                      onPressed: _controllerPassword.clear,
+                      icon: const Icon(Icons.clear),
+                    ),),
+
+                  const SizedBox(height: 10,),
+
+                  CustomShowcaseWidget(
+                    globalKey: _LoginPageState._twoLogin,
+                    description: "Al ingresar tus datos, presiona en inicia sesión.",
+                    child: SizedBox(
+                      width: 322,
+                      child: MyButton(
+                        buttonIcon: Icons.login,
+                        buttonIconSize: 40,
+                        textSize: 24,
+                        direction: Axis.horizontal,
+                        onTap: () {
+                          signInWithEmailAndPassword();
+                        },
+                        insertText: "Iniciar Sesión",
+                      ),
+                    ),
                   ),
-                )
-              ],
-          )
-          ),
-        ),
+
+                  const SizedBox(height: 10,),
+
+
+                  CustomShowcaseWidget(
+                    globalKey: _LoginPageState._threeLogin,
+                    description: "Si no tienes cuenta, presiona aqui!",
+                    child: SizedBox(
+                      width: 322,
+                      child: MyButton(
+                        buttonIcon: Icons.add_reaction_outlined,
+                        buttonIconSize: 40,
+                        textSize: 24,
+                        direction: Axis.horizontal,
+                        onTap: () {
+                          Navigator.pushReplacement(
+                              context,
+                              PageTransition(
+                                child: ShowCaseWidget(builder: (context) => const RegisterPage()),
+                                type: PageTransitionType.fade,
+                              )
+                          );
+                        },
+                        insertText: "¿No tienes cuenta?",
+                      ),
+                    ),
+                  ),
+
+                ],
+            )
+            ),
+                    ),
+
       ]
       ),
     );
-    
+
     
     
   }
