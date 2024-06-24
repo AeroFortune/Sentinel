@@ -254,6 +254,7 @@ class _LoginPageState extends State<LoginPage> {
                         textSize: 24,
                         direction: Axis.horizontal,
                         onTap: () {
+                          print(signInWithEmailAndPassword());
                           signInWithEmailAndPassword();
                         },
                         insertText: "Iniciar Sesión",

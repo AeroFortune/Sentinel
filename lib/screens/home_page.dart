@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> checkVerificationStatus() async {
     FirebaseAuth.instance.currentUser?.reload();
     final user = FirebaseAuth.instance.currentUser;
-    if (user!.emailVerified){
+    if (user!.emailVerified!){
       toastification.show(
           context: context,
           title: const Text("Error!", style: TextStyle(fontWeight: FontWeight.bold)),
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           type: ToastificationType.error,
           style: ToastificationStyle.flatColored
       );
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           PageTransition(
             child: const RegisterVerificationPage(),
@@ -47,8 +47,13 @@ class _HomePageState extends State<HomePage> {
           )
       );
     }
+  }
 
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    checkVerificationStatus();
+    super.initState();
   }
 
   var age;

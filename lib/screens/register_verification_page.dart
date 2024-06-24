@@ -103,8 +103,10 @@ class _RegisterVerificationPageState extends State<RegisterVerificationPage> {
       backgroundColor: const Color(0xFFFFFB8D),
       appBar: AppBar(
         backgroundColor: const Color(0xFF044389),
-
         centerTitle: true,
+        leading: const BackButton(
+            color: Colors.white
+        ),
         //title: Text("Registro de Cuenta", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
       body: Stack(
