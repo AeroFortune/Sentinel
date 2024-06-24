@@ -22,11 +22,11 @@ class CustomShowcaseWidget extends StatelessWidget {
       showArrow: true,
       key: globalKey,
       title: title,
-      targetPadding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
+      targetPadding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
       titleAlignment: TextAlign.center,
       description: description,
-      child: child,
       targetShapeBorder: shapeBorder,
+      child: child,
     );
   }
 }

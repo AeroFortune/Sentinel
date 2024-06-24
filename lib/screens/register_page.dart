@@ -242,7 +242,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     _RegisterPageState._sevenRegisterKey,
                     _RegisterPageState._loopRegisterKey
                   ]),
-                  icon: Icon(Icons.help), color: Colors.white,))
+                  icon: const Icon(Icons.help), color: Colors.white,))
         ],
         //title: Text("Registro de Cuenta", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),

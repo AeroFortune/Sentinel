@@ -9,7 +9,6 @@ import 'package:sentinel/screens/home_page.dart';
 import 'package:toastification/toastification.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
-import 'package:async/async.dart';
 
 import '../helpers/auth.dart';
 
@@ -140,7 +139,7 @@ class _RegisterVerificationPageState extends State<RegisterVerificationPage> {
                   const Text("A continuación, hemos enviado un email a tu correo electronico. Por favor verificalo e ingresa al enlace para poder activar tu cuenta.",
                   softWrap: true, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
                   const SizedBox(height: 150,),
-                  Container(
+                  SizedBox(
                     width: 250,
                     child: MyButton(
                         onTap: () => manuallyCheckVerificationStatus(),

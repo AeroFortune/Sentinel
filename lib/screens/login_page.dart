@@ -11,7 +11,6 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:toastification/toastification.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
-import 'package:flutter/scheduler.dart';
 
 import '../models/generic_inputs/my_button.dart';
 
@@ -151,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                     _LoginPageState._oneLogin,
                     _LoginPageState._twoLogin,
                     _LoginPageState._threeLogin]),
-                  icon: Icon(Icons.help), color: Colors.white))
+                  icon: const Icon(Icons.help), color: Colors.white))
         ],
       ),
       body: Stack(
