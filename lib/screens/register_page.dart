@@ -42,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
         context: context,
         initialDate: DateTime(2000, 1, 1),
         firstDate: DateTime(1900),
-        lastDate: DateTime(2023)
+        lastDate: DateTime(2017)
     );
 
     setState(() {

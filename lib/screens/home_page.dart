@@ -158,15 +158,17 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       MyButton(
-                          onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage())) },
-                          insertText: "Acerca De"
-                      ),
-                      const SizedBox(height: 1),
-                      MyButton(
                           buttonIcon: Icons.group,
                           onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage())) },
                           insertText: "Créditos"
-                      )
+                      ),
+                      const SizedBox(height: 1),
+                      MyButton(
+                          onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage())) },
+                          insertText: "Acerca De"
+                      ),
+
+
                     ],
                   ),
                   //

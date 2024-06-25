@@ -5,17 +5,15 @@ import 'package:sentinel/helpers/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sentinel/models/generic_inputs/my_textfield.dart';
 import 'package:sentinel/models/showcase_widget.dart';
+import 'package:sentinel/screens/age_warning_page.dart';
+import 'package:sentinel/screens/introduction_page.dart';
 import 'package:sentinel/screens/register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:toastification/toastification.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
-
 import '../models/generic_inputs/my_button.dart';
-
-
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -28,25 +26,12 @@ class _LoginPageState extends State<LoginPage> {
   String? errorMessage = '';
   bool isLogin = true;
 
-  // TODO: Probablemente separar registro en su propia pantalla? Si le puedo poner una animación a esta entonces no
-  // TODO: Importa though.
-
-
-
   Future<void> signInWithEmailAndPassword() async {
     try {
-
-
       await FirebaseAuthServices().signInWithEmailAndPassword(
           email: _controllerEmail.text.trim(),
           password: _controllerPassword.text.trim()
       );
-
-
-
-      // Verificar AQUI si el usuario esta verificado -- Si esto no sirve, probar en homepage
-
-
     } on FirebaseAuthException catch (e) {
       setState(() {
         if (_controllerPassword.text.trim() == "" || _controllerEmail.text.trim() == "" ){
@@ -80,17 +65,17 @@ class _LoginPageState extends State<LoginPage> {
           );
           return;
         } if (e.code == "too-many-requests") {
-        toastification.show(
-            context: context,
-            title: const Text("Error al iniciar sesión!",
-                style: TextStyle(fontWeight: FontWeight.bold)),
-            autoCloseDuration: const Duration(seconds: 10),
-            description: const Text("Esta cuenta ha sido temporalmente desactivada debido a un exceso de solicitudes.",
-              style: TextStyle(fontWeight: FontWeight.bold),),
-            type: ToastificationType.error,
-            style: ToastificationStyle.flatColored
-        );
-        return;
+          toastification.show(
+              context: context,
+              title: const Text("Error al iniciar sesión!",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              autoCloseDuration: const Duration(seconds: 10),
+              description: const Text("Esta cuenta ha sido temporalmente desactivada debido a un exceso de solicitudes. Por favor espere un rato para intentarlo otra vez.",
+                style: TextStyle(fontWeight: FontWeight.bold),),
+              type: ToastificationType.error,
+              style: ToastificationStyle.fillColored
+          );
+          return;
       } if (e.code == "invalid-email") {
           toastification.show(
               context: context,
@@ -114,17 +99,16 @@ class _LoginPageState extends State<LoginPage> {
           );
           return;
         }
+
+
       });
 
     }
   }
 
-
-
   Future<void> getShowcaseStatus() async {
     final prefs = await SharedPreferences.getInstance();
     final showcaseDone = prefs.getBool("login_showcase_is_passed") ?? false;
-
     if (showcaseDone == false){
       ShowCaseWidget.of(context).startShowCase([_zeroLogin, _oneLogin, _twoLogin, _threeLogin]);
       prefs.setBool("login_showcase_is_passed", true);
@@ -148,10 +132,8 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
 
     Future.delayed(const Duration(seconds: 1), () => WidgetsBinding.instance.addPostFrameCallback((_) {
       getShowcaseStatus();
@@ -240,9 +222,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: _controllerPassword.clear,
                       icon: const Icon(Icons.clear),
                     ),),
-
                   const SizedBox(height: 10,),
-
                   CustomShowcaseWidget(
                     globalKey: _LoginPageState._twoLogin,
                     description: "Al ingresar tus datos, presiona en inicia sesión.",
@@ -254,17 +234,13 @@ class _LoginPageState extends State<LoginPage> {
                         textSize: 24,
                         direction: Axis.horizontal,
                         onTap: () {
-                          print(signInWithEmailAndPassword());
                           signInWithEmailAndPassword();
                         },
                         insertText: "Iniciar Sesión",
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 10,),
-
-
                   CustomShowcaseWidget(
                     globalKey: _LoginPageState._threeLogin,
                     description: "Si no tienes cuenta, presiona aqui!",
@@ -286,6 +262,25 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         insertText: "¿No tienes cuenta?",
                       ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 322,
+                    child: MyButton(
+                      buttonIcon: Icons.login,
+                      buttonIconSize: 40,
+                      textSize: 24,
+                      direction: Axis.horizontal,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                              child: const IntroductionPage(),
+                              type: PageTransitionType.fade,
+                            )
+                        );
+                      },
+                      insertText: "verificacion_test",
                     ),
                   ),
 

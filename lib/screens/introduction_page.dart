@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/screens/age_warning_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../models/generic_inputs/my_button.dart';
 
 class IntroductionPage extends StatefulWidget {
   const IntroductionPage({super.key});
@@ -28,22 +31,22 @@ class IntroPageItems{
     IntroPageInfo(
         title: "Bienvenido!",
         description: "Bienvenido a Sentinel! Este aplicación podras encontrar actividades educativas que te enseñaran sobre lecciones de seguridad de información.",
-        image: "image"
+        image: "assets/content/introduction/int_security.png"
     ),
     IntroPageInfo(
         title: "Para todas las edades",
         description: "Sentinel te proveerá diferente contenido dado tu edad. Así podras entender algo que le pasaría a alguien de tu edad.",
-        image: "image"
+        image: "assets/content/introduction/int_family.png"
     ),
     IntroPageInfo(
         title: "No estas solo!",
-        description: "Will te guiará en la aplicación! Pero Will necesitará que prestes atención a sus consejos, woof!",
-        image: "image"
+        description: "Conoce a Will! El te guiará en la aplicación! Pero Will necesitará que prestes atención a sus consejos, woof!",
+        image: "assets/content/introduction/int_will_dog.png"
     ),
     IntroPageInfo(
         title: "Recuerda",
         description: "Sigue lo que te dicen! Este mensaje y el siguiente solo aparecen una vez.",
-        image: "image"
+        image: "assets/content/introduction/int_reminder.png"
     ),
   ];
 }
@@ -58,6 +61,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF044389),
       bottomSheet: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
         child: isLastPage? getStarted() : Row(
@@ -91,46 +95,46 @@ class _IntroductionPageState extends State<IntroductionPage> {
           ],
         ),
       ),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 25),
-        child: PageView.builder(
-            onPageChanged: (index) => setState(()=> isLastPage = _itemController.itemPages.length-1  == index),
-            itemCount: _itemController.itemPages.length,
-            controller: _pageController,
-            itemBuilder: (context, index){
-              return Column(
+      body: PageView.builder(
+          onPageChanged: (index) => setState(()=> isLastPage = _itemController.itemPages.length-1  == index),
+          itemCount: _itemController.itemPages.length,
+          controller: _pageController,
+          itemBuilder: (context, index){
+            return Container(
+              margin: const EdgeInsets.only(left: 25, right: 25, top: 90, bottom: 150),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(_itemController.itemPages[index].image),
+                  SizedBox(height: 10,),
                   Text(_itemController.itemPages[index].title,
-                    style: const TextStyle(fontSize: 28, color: Colors.grey), textAlign: TextAlign.center,),
+                    style: const TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                  SizedBox(height: 10,),
                   Text(_itemController.itemPages[index].description,
-                    style: const TextStyle(fontSize: 19, color: Colors.grey), textAlign: TextAlign.justify,
+                    style: const TextStyle(fontSize: 19, color: Colors.white), textAlign: TextAlign.justify,
                       ),
 
                 ],
+                          ),
             );
-          }
-      ),
-    )
+        }
+            )
     );
   }
 
   Widget getStarted(){
     return SizedBox(
         width: MediaQuery.of(context).size.width * .9,
-        height: 55,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFFFFB8D)
-          ),
-          onPressed: ()async{
+        height: 48,
+        child: MyButton(
+          onTap: () async {
             final pres = await SharedPreferences.getInstance();
             pres.setBool("first_time_started", true);
             if(!mounted)return;
             Navigator.pushReplacement(context, PageTransition(child: const AgeWarningPage(), type: PageTransitionType.fade ) );
           },
-          child: const Text("Continuar"),
+          insertText: "Continuar",
         ),
     );
   }

@@ -26,9 +26,6 @@ class _KCIntroductionPageState extends State<KCIntroductionPage> {
         backgroundColor: const Color(0xFF044389),
         title: const Text("Introducción", textAlign: TextAlign.center, style: TextStyle(color:Colors.white ,fontWeight: FontWeight.bold),),
         centerTitle: true,
-        leading: const BackButton(
-          color: Colors.white
-        ),
         actions: [
           IconButton(
             onPressed: () => print("Testing if this works."),
