@@ -5,7 +5,6 @@ import 'package:sentinel/helpers/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sentinel/models/generic_inputs/my_textfield.dart';
 import 'package:sentinel/models/showcase_widget.dart';
-import 'package:sentinel/screens/age_warning_page.dart';
 import 'package:sentinel/screens/introduction_page.dart';
 import 'package:sentinel/screens/register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';

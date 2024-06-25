@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/screens/age_warning_page.dart';
@@ -61,7 +60,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF044389),
+      backgroundColor: const Color(0xFF044389),
       bottomSheet: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
         child: isLastPage? getStarted() : Row(
@@ -107,10 +106,10 @@ class _IntroductionPageState extends State<IntroductionPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(_itemController.itemPages[index].image),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Text(_itemController.itemPages[index].title,
                     style: const TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Text(_itemController.itemPages[index].description,
                     style: const TextStyle(fontSize: 19, color: Colors.white), textAlign: TextAlign.justify,
                       ),

@@ -204,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                         age = DateTime.now().year - DateTime.parse(userData.fechaNac).year;
                         return Text("Bienvenido, ${userData.nombre}!", softWrap: true, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold), );
                       } else {
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                         //return Text(snapshot.error.toString());
                       }
                     } else {

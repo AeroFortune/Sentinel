@@ -88,7 +88,7 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
                           softWrap: true,)
                     ),
                   ),
-                  SizedBox(height: 5,),
+                  const SizedBox(height: 5,),
                   Container(
                     margin: const EdgeInsets.only(left: 20, right: 20),
                     child: const SizedBox(

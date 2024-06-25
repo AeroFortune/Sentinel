@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies{
-    implementation platform('com.google.firebase:firebase-bom:33.1.0')
+    implementation platform('com.google.firebase:firebase-bom:33.1.1')
     implementation 'com.google.firebase:firebase-analytics'
 }
 
@@ -29,6 +29,12 @@ if (flutterVersionName == null) {
     flutterVersionName = "1.0"
 }
 
+//def keystoreProperties = new Properties()
+//def keystorePropertiesFile = rootProject.file('key.properties')
+//if (keystorePropertiesFile.exists()) {
+//    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+//}
+
 android {
     namespace = "com.proyecto.sentinel.sentinel"
     compileSdk = flutter.compileSdkVersion
@@ -45,7 +51,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         //minSdk = flutter.minSdkVersion
-        minSdkVersion = 25
+        minSdkVersion = 29
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName

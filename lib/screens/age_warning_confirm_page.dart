@@ -24,7 +24,7 @@ class _AgeWarningConfirmPageState extends State<AgeWarningConfirmPage> {
         title: const Text("Aviso", textAlign: TextAlign.center, style: TextStyle(color:Colors.white ,fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
-      backgroundColor: Color(0xFFFFFB8D),
+      backgroundColor: const Color(0xFFFFFB8D),
       body: Stack(
         children: [
           Positioned(
@@ -70,6 +70,7 @@ class _AgeWarningConfirmPageState extends State<AgeWarningConfirmPage> {
                       buttonIcon: Icons.check,
                       buttonIconSize: 90,
                       onTap: () async {
+                        // cambiar esto por flutter_secure_storage
                         final pres = await SharedPreferences.getInstance();
                         pres.setBool("age_verificated", true);
                         Navigator.pushReplacement(
