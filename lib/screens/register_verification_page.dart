@@ -48,7 +48,7 @@ class _RegisterVerificationPageState extends State<RegisterVerificationPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.flatColored
         );
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             PageTransition(
               child: const HomePage(),

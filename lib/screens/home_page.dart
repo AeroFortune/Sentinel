@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> checkVerificationStatus() async {
     FirebaseAuth.instance.currentUser?.reload();
     final user = FirebaseAuth.instance.currentUser;
-    if (user!.emailVerified!){
+    if (user!.emailVerified == false){
       toastification.show(
           context: context,
           title: const Text("Error!", style: TextStyle(fontWeight: FontWeight.bold)),
@@ -46,20 +46,21 @@ class _HomePageState extends State<HomePage> {
             type: PageTransitionType.fade,
           )
       );
+    } else {
+      return;
     }
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    checkVerificationStatus();
-    super.initState();
-  }
+
 
   var age;
 
   @override
   Widget build(BuildContext context) {
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkVerificationStatus();
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -104,25 +105,25 @@ class _HomePageState extends State<HomePage> {
                         outlineButtonColor: Colors.white        ,
                         buttonIcon: Icons.play_circle,
                         buttonIconSize: 100,
-                        onTap: () => {
+                        onTap: () {
                           // Verificar edad aqui
-                          if (age < 18) {
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                  child: const KCIntroductionPage(),
-                                  type: PageTransitionType.bottomToTop,
-                                )
-                            )
+
+
+                          if (age > 7) {
+                            Navigator.push(context, PageTransition(child: const KCIntroductionPage(), type: PageTransitionType.bottomToTop,));
+                          } if (age > 18) {
+                            Navigator.push(context, PageTransition(child: const ACIntroductionPage(), type: PageTransitionType.bottomToTop,));
                           } else {
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                  child: const ACIntroductionPage(),
-                                  type: PageTransitionType.bottomToTop,
-                                )
-                            )
+                            toastification.show(
+                                context: context,
+                                title: const Text("Error!", style: TextStyle(fontWeight: FontWeight.bold)),
+                                autoCloseDuration: const Duration(seconds: 10),
+                                description: const Text("Creo que tu edad no es la adecuada para esta aplicación, por favor sal.", style: TextStyle(fontWeight: FontWeight.bold),),
+                                type: ToastificationType.error,
+                                style: ToastificationStyle.flatColored
+                            );
                           }
+
                         },
                         insertText: "Empezar",
                         textSize: 30,
@@ -191,18 +192,18 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               const SizedBox(height: 10,),
+
               FutureBuilder(
                   future: UserRepo().getUserDetails(FirebaseAuthServices().currentUser!.uid),
                   builder: (context, snapshot){
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
                         UserData userData = snapshot.data as UserData;
-
                         age = DateTime.now().year - DateTime.parse(userData.fechaNac).year;
-
-                        return Text("Bienvenido, ${userData.nombre}!", softWrap: true, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),);
+                        return Text("Bienvenido, ${userData.nombre}!", softWrap: true, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold), );
                       } else {
-                        return Text(snapshot.error.toString());
+                        return CircularProgressIndicator();
+                        //return Text(snapshot.error.toString());
                       }
                     } else {
                       return Text(snapshot.error.toString());

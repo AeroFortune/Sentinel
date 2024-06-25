@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
 
 
-    Future.delayed(Duration.zero, () => WidgetsBinding.instance.addPostFrameCallback((_) {
+    Future.delayed(const Duration(seconds: 1), () => WidgetsBinding.instance.addPostFrameCallback((_) {
       getShowcaseStatus();
     }));
 
