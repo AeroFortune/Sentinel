@@ -28,7 +28,7 @@ class _KCIntroductionPageState extends State<KCIntroductionPage> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () => print("Testing if this works."),
+            onPressed: () {},
             icon: const Icon(Icons.volume_up_outlined),
             color: Colors.white,
             tooltip: "Activar narrador",
@@ -84,7 +84,6 @@ class _KCIntroductionPageState extends State<KCIntroductionPage> {
                           buttonIconSize: 80,
                           buttonColor: Colors.green,
                           onTap: () {
-                            print(" ");
                             return Navigator.push(
                               context,
                               PageTransition(

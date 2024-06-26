@@ -4,13 +4,13 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 import 'package:sentinel/models/generic_inputs/my_button.dart';
+import 'package:sentinel/screens/content/adult_story/content_A_ending_page.dart';
 import 'package:sentinel/screens/content/adult_story/content_A_introduction_page.dart';
-import 'package:sentinel/screens/content/adult_story/content_A_part4_selection_page.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
-class ACIntermissionPage4 extends StatelessWidget {
-  const ACIntermissionPage4({super.key});
+class ACIntermissionPageEpilogue extends StatelessWidget {
+  const ACIntermissionPageEpilogue({super.key});
 
 
 
@@ -82,7 +82,7 @@ class ACIntermissionPage4 extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(left: 20, right: 20),
                 child: const Text(
-                  "'Me leyo la mente... Es *casi* muy conveniente al punto de ser sospechoso, asi que lo ignoraré.'\n\n Don Ramón siguió navegando hasta encontrar recomendaciones oficiales del sitio, principalmente un sitio para detectar cuentas hackeadas, llamado HaveIBeenPwned, al cual decide entrar.",
+                  "Con una situación y solución clara, Don Ramón decidió investigar que se debe tener en una contraseña segura, como su longitud, caracterés, y otros. \nDon Ramón aprendió que de dudar puedes confirmar y estar seguro sobre todas las posibilidades de las situaciones.",
                   textAlign: TextAlign.justify,
                   softWrap: true,
                   style: TextStyle(
@@ -105,7 +105,7 @@ class ACIntermissionPage4 extends StatelessWidget {
                       Navigator.pushReplacement(
                           context,
                           PageTransition(
-                            child: const ACSelectionPage4(),
+                            child: const ACEndingPage(),
                             type: PageTransitionType.rightToLeftJoined, childCurrent: this
                           )
                       )

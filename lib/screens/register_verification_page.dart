@@ -27,7 +27,14 @@ class _RegisterVerificationPageState extends State<RegisterVerificationPage> {
     try {
       FirebaseAuthServices().currentUser?.sendEmailVerification();
     } catch (e) {
-      print(e);
+      toastification.show(
+            context: context,
+            title: const Text("Error!", style: TextStyle(fontWeight: FontWeight.bold)),
+            autoCloseDuration: const Duration(seconds: 10),
+            description: const Text("Ha sucedido un error al enviar la verificación, por favor contactar a un administrador.", style: TextStyle(fontWeight: FontWeight.bold),),
+            type: ToastificationType.success,
+            style: ToastificationStyle.flatColored
+        );
     }
 
   }
@@ -133,10 +140,10 @@ class _RegisterVerificationPageState extends State<RegisterVerificationPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text("Verificación de Cuenta", softWrap: true, style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white), ),
+                  const Text("Verificación de Cuenta", softWrap: true, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white), ),
                   const SizedBox(height: 10,),
                   const Text("A continuación, hemos enviado un email a tu correo electronico. Por favor verificalo e ingresa al enlace para poder activar tu cuenta.",
-                  softWrap: true, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+                  softWrap: true, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
                   const SizedBox(height: 150,),
                   SizedBox(
                     width: 250,

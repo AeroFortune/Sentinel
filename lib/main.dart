@@ -38,14 +38,9 @@ class MyApp extends StatelessWidget {
             color: Colors.white
           )
         ),
-        colorSchemeSeed: const Color.fromRGBO(86, 80, 14, 171),
         useMaterial3: true,
       ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.dark,
-        colorSchemeSeed: const Color.fromRGBO(86, 80, 14, 171),
-      ),
+
       home: isStarted && isAgeVerificated ? ShowCaseWidget(builder: (context) => const WidgetTree()) : ShowCaseWidget(builder: (context) => const IntroductionPage()),
     );
   }

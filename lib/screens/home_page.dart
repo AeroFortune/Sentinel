@@ -53,6 +53,8 @@ class _HomePageState extends State<HomePage> {
 
 
 
+
+
   var age;
 
   @override
@@ -67,6 +69,8 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: const Color(0xFF044389),
         title: const Text("Menú Principal", textAlign: TextAlign.center, style: TextStyle(color:Colors.white ,fontWeight: FontWeight.bold),),
         centerTitle: true,
+        leading: null,
+
       ),
       body: Stack(
         alignment: Alignment.center,
@@ -81,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                 config: CustomConfig(
                     colors: [const Color(0xFF044389), const Color(0xFFFFFB8D)],
                     durations: [5000, 5000],
-                    heightPercentages: [-0.3, 0.66]),
+                    heightPercentages: [-0.3, 0.86]),
                 size: Size(MediaQuery.sizeOf(context).height, MediaQuery.sizeOf(context).width),
                 backgroundColor: const Color(0xFFFFFB8D),
                 waveFrequency: 1,
@@ -93,26 +97,26 @@ class _HomePageState extends State<HomePage> {
           ),
           Column(
             children: <Widget>[
-              const SizedBox(height: 50),
+              const SizedBox(height: 80),
               // Botones en azul
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 200,
-                    height: 200,
+                    width: 220,
+                    height: 220,
                     child: MyButton(
                         outlineButtonColor: Colors.white        ,
                         buttonIcon: Icons.play_circle,
-                        buttonIconSize: 100,
+                        buttonIconSize: 130,
                         onTap: () {
                           // Verificar edad aqui
 
 
                           if (age > 7) {
-                            Navigator.push(context, PageTransition(child: const KCIntroductionPage(), type: PageTransitionType.bottomToTop,));
+                            Navigator.pushReplacement(context, PageTransition(child: const KCIntroductionPage(), type: PageTransitionType.bottomToTop,));
                           } if (age > 18) {
-                            Navigator.push(context, PageTransition(child: const ACIntroductionPage(), type: PageTransitionType.bottomToTop,));
+                            Navigator.pushReplacement(context, PageTransition(child: const ACIntroductionPage(), type: PageTransitionType.bottomToTop,));
                           } else {
                             toastification.show(
                                 context: context,
@@ -125,13 +129,13 @@ class _HomePageState extends State<HomePage> {
                           }
 
                         },
-                        insertText: "Empezar",
-                        textSize: 30,
+                        insertText: "Jugar",
+                        textSize: 26,
                     ),
                   )
                 ],
               ),
-              const SizedBox(height: 180),
+              const SizedBox(height: 130),
               // Botones en amarillo
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -158,12 +162,14 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       MyButton(
+                        direction: Axis.horizontal,
                           buttonIcon: Icons.group,
                           onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage())) },
                           insertText: "Créditos"
                       ),
                       const SizedBox(height: 1),
                       MyButton(
+                          direction: Axis.horizontal,
                           onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage())) },
                           insertText: "Acerca De"
                       ),
@@ -202,13 +208,13 @@ class _HomePageState extends State<HomePage> {
                       if (snapshot.hasData) {
                         UserData userData = snapshot.data as UserData;
                         age = DateTime.now().year - DateTime.parse(userData.fechaNac).year;
-                        return Text("Bienvenido, ${userData.nombre}!", softWrap: true, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold), );
+                        return Text("Bienvenido, ${userData.nombre}!", softWrap: true, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold), );
                       } else {
                         return const CircularProgressIndicator();
                         //return Text(snapshot.error.toString());
                       }
                     } else {
-                      return Text(snapshot.error.toString());
+                      return const CircularProgressIndicator();
                     }
                   }
               )

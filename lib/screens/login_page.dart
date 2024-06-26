@@ -5,7 +5,6 @@ import 'package:sentinel/helpers/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sentinel/models/generic_inputs/my_textfield.dart';
 import 'package:sentinel/models/showcase_widget.dart';
-import 'package:sentinel/screens/introduction_page.dart';
 import 'package:sentinel/screens/register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -139,7 +138,6 @@ class _LoginPageState extends State<LoginPage> {
     }));
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: const Color(0xFFFFFB8D),
       appBar: AppBar(
         centerTitle: true,
@@ -170,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                 config: CustomConfig(
                     colors: [const Color(0xFF044389), const Color(0xFFFFFB8D)],
                     durations: [5000, 5000],
-                    heightPercentages: [-0.3, 0.66]),
+                    heightPercentages: [-0.3, 0.76]),
                 size: Size(MediaQuery.sizeOf(context).height, MediaQuery.sizeOf(context).width),
                 backgroundColor: const Color(0xFFFFFB8D),
                 waveFrequency: 1,
@@ -184,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -199,28 +197,33 @@ class _LoginPageState extends State<LoginPage> {
                         width: 130,
                       ),),
 
-                  const Text("Sentinel", textAlign: TextAlign.center, style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white), ),
-                  const Text("Bienvenido, por favor inicia sesión.", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white), ),
+                  const SizedBox(height: 20,),
+
+                  const Text("Sentinel", textAlign: TextAlign.center, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white), ),
+                  const Text("Bienvenido, por favor inicia sesión.", textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white), ),
                   const SizedBox(height: 10,),
 
                   CustomShowcaseWidget(
                     title: "Datos de sesión",
                     globalKey: _LoginPageState._oneLogin,
                     description: "Bienvenido a la aplicación! Si previamente ya tenias una cuenta, por favor ingresa los datos.",
-                    child: Container(
-                      child: SentinelTextfield(hintText: "Usuario", obscureText: false, icon: Icons.person, controller: _controllerEmail,
-                        suffixButton: IconButton(
-                        onPressed: _controllerEmail.clear,
-                        icon: const Icon(Icons.clear),
+                    child: Column(
+                      children: [
+                        SentinelTextfield(hintText: "E-mail", obscureText: false, icon: Icons.email, controller: _controllerEmail,
+                          suffixButton: IconButton(
+                          onPressed: _controllerEmail.clear,
+                          icon: const Icon(Icons.clear, color: Colors.black,),
+                          ),
                         ),
-                      ),
+                        SentinelTextfield(hintText: "Contraseña", obscureText: true, icon: Icons.key, controller: _controllerPassword,
+                          suffixButton: IconButton(
+                            onPressed: _controllerPassword.clear,
+                            icon: const Icon(Icons.clear, color: Colors.black,),
+                          ),),
+                      ],
                     ),
                   ),
-                  SentinelTextfield(hintText: "Contraseña", obscureText: true, icon: Icons.key, controller: _controllerPassword,
-                    suffixButton: IconButton(
-                      onPressed: _controllerPassword.clear,
-                      icon: const Icon(Icons.clear),
-                    ),),
+
                   const SizedBox(height: 10,),
                   CustomShowcaseWidget(
                     globalKey: _LoginPageState._twoLogin,
@@ -229,8 +232,6 @@ class _LoginPageState extends State<LoginPage> {
                       width: 322,
                       child: MyButton(
                         buttonIcon: Icons.login,
-                        buttonIconSize: 40,
-                        textSize: 24,
                         direction: Axis.horizontal,
                         onTap: () {
                           signInWithEmailAndPassword();
@@ -247,8 +248,6 @@ class _LoginPageState extends State<LoginPage> {
                       width: 322,
                       child: MyButton(
                         buttonIcon: Icons.add_reaction_outlined,
-                        buttonIconSize: 40,
-                        textSize: 24,
                         direction: Axis.horizontal,
                         onTap: () {
                           Navigator.pushReplacement(
@@ -261,25 +260,6 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         insertText: "¿No tienes cuenta?",
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 322,
-                    child: MyButton(
-                      buttonIcon: Icons.login,
-                      buttonIconSize: 40,
-                      textSize: 24,
-                      direction: Axis.horizontal,
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                              child: const IntroductionPage(),
-                              type: PageTransitionType.fade,
-                            )
-                        );
-                      },
-                      insertText: "verificacion_test",
                     ),
                   ),
 

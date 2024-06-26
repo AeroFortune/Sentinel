@@ -30,11 +30,12 @@ class SentinelTextfield extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
       child: TextField(
         controller: controller,
+        style: const TextStyle(color: Colors.black, fontSize: 16),
         obscureText: obscureText,
         onTap: onTap,
         readOnly: readOnly ?? false,
         decoration: InputDecoration(
-            prefixIcon: Icon(icon),
+            prefixIcon: Icon(icon, color: Colors.black,),
             enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(5)),
               borderSide: BorderSide(color: Colors.black, width: 1)

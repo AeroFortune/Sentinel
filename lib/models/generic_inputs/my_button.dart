@@ -10,6 +10,8 @@ class MyButton extends StatelessWidget {
   final double? buttonIconSize;
   final double? buttonRadius;
   final Axis? direction;
+  final Color? textColor;
+  final Color? buttonIconColor;
   // Agregar requerimientos para: Shape, Color, Iconos
 
   const MyButton({
@@ -23,6 +25,8 @@ class MyButton extends StatelessWidget {
     this.textSize,
     this.buttonRadius,
     this.direction,
+    this.textColor,
+    this.buttonIconColor
   });
 
   @override
@@ -50,16 +54,17 @@ class MyButton extends StatelessWidget {
             children: [
               Icon(
                 buttonIcon ?? Icons.info_outline_rounded,
-                color: Colors.white,
-                size: buttonIconSize ?? 25,
+                color: buttonIconColor ?? Colors.white,
+                size: buttonIconSize ?? 35,
               ),
-              const SizedBox(width: 9,),
+              const SizedBox(width: 5,),
               Text(
                 insertText,
                 textAlign: TextAlign.center,
+                softWrap: true,
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: textSize ?? 17,
+                    color: textColor ?? Colors.white,
+                    fontSize: textSize ?? 14,
                 ),)
             ],
           ),

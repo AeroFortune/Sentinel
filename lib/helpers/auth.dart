@@ -65,8 +65,6 @@ class FirebaseAuthServices{
     await _firebaseAuth.signOut();
   }
 
-  // get data
-
   Future<FirebaseAuth> getInstanceData() async {
 
     FirebaseAuth firebaseAuthData = FirebaseAuth.instance;
@@ -74,23 +72,5 @@ class FirebaseAuthServices{
     return firebaseAuthData;
 
   }
-
-  // Future<String> getUserName() async {
-  //
-  //    DocumentSnapshot <Map<<String, dynamic>>> = await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get();
-  //
-  //   if (collection.exists){
-  //     Map<String, dynamic>? data = collection.data();
-  //     print(data);
-  //     var value = data?['nombre'];
-  //
-  //     () => value;
-  //   }
-  //
-  //   return 'Oops!';
-  //
-  // }
-
-
 
 }

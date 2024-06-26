@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/models/generic_inputs/my_button.dart';
 import 'package:sentinel/screens/content/adult_story/content_A_part1_intermission_page.dart';
+import 'package:sentinel/screens/content/content_branch_page.dart';
+import 'package:sentinel/screens/home_page.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -27,9 +29,21 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
         backgroundColor: const Color(0xFF044389),
         title: const Text("Introducción", textAlign: TextAlign.center, style: TextStyle(color:Colors.white ,fontWeight: FontWeight.bold),),
         centerTitle: true,
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pushReplacement(
+                context,
+                PageTransition(
+                    child: const HomePage(),
+                    type: PageTransitionType.fade
+                )
+            );
+          },
+        ),
         actions: [
           IconButton(
-            onPressed: () => print("Testing if this works."),
+            onPressed: () {},
             icon: const Icon(Icons.volume_up_outlined),
             color: Colors.white,
             tooltip: "Activar narrador",
@@ -81,8 +95,7 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
                         child:
                         Text("Adentrate en la historia de Don Ramon, un ciudadano promedio de la vida cotidiana, que se involucra en una historia que lo pone en las manos de los riesgos de ciber-seguridad...",
                           style: TextStyle(
-                              fontSize: 20,
-                              letterSpacing: -1
+                              fontSize: 14,
                           ),
                           textAlign: TextAlign.justify,
                           softWrap: true,)
@@ -95,9 +108,8 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
                         child:
                         Text("¿Podras llevarlo a la seguridad?",
                           style: TextStyle(
-                              fontSize: 23,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              letterSpacing: -1
                           ),
                           textAlign: TextAlign.justify,
                           softWrap: true,)
@@ -118,7 +130,16 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
                         child: MyButton(
                             buttonIcon: Icons.timeline,
                             buttonIconSize: 80,
-                            onTap: () => {},
+                            onTap: () => {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      child: const ContentBranchPage(),
+                                      type: PageTransitionType.fade
+                                  )
+                              )
+
+                            },
                             insertText: "Timeline",
                             textSize: 29,
                         ),
@@ -130,8 +151,7 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
                             buttonIconSize: 80,
                             buttonColor: Colors.green,
                             onTap: () {
-                              print(" ");
-                              return Navigator.push(
+                              Navigator.push(
                                 context,
                                 PageTransition(
                                   child: const ACIntermissionPage1(),
