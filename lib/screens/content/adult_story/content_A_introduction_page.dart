@@ -122,7 +122,7 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
               Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly    ,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       SizedBox(

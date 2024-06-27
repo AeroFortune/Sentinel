@@ -52,11 +52,15 @@ class _AgeWarningPageState extends State<AgeWarningPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text("Esta aplicación puede ser compleja de navegar. Por favor lee cuidadosamente. Esta página es solo un aviso! \nLo que escojas aqui no importará o afectará el usaje general de la aplicación.",
+              const Text("Por favor lea cuidadosamente, esta página es solo un aviso! \nLo que escojas aqui no importará o afectará el usaje general de la aplicación.",
                 style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white),
                 softWrap: true,
                 textAlign: TextAlign.justify,),
-              const SizedBox(height: 150,),
+              const Text("Eres un adulto mayor o un niño?",
+                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold, color: Colors.white),
+                softWrap: true,
+                textAlign: TextAlign.center,),
+              const SizedBox(height: 149,),
               Container(
                 margin: const EdgeInsets.only(left: 20, right: 20),
                 child: Row(

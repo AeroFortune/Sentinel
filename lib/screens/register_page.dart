@@ -300,7 +300,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   CustomShowcaseWidget(
                     globalKey:  _RegisterPageState._twoRegisterKey,
                     description: "Después va tu email! Este es super importante ya que es lo que usaras para ingresar después, asi que recuerdalo bien! Woof!",
-                    child: SentinelTextfield(hintText: "Email", obscureText: false, icon: Icons.mail, controller: _controllerEmail,
+                    child: SentinelTextfield(hintText: "E-mail", obscureText: false, icon: Icons.mail, controller: _controllerEmail,
                       suffixButton: IconButton(
                       onPressed: _controllerEmail.clear,
                       icon: const Icon(Icons.clear),

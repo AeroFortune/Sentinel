@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
 
 
                           if (age > 7) {
-                            Navigator.pushReplacement(context, PageTransition(child: const KCIntroductionPage(), type: PageTransitionType.bottomToTop,));
+                            Navigator.pushReplacement(context, PageTransition(child: const ACIntroductionPage(), type: PageTransitionType.bottomToTop,));
                           } if (age > 18) {
                             Navigator.pushReplacement(context, PageTransition(child: const ACIntroductionPage(), type: PageTransitionType.bottomToTop,));
                           } else {
