@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -9,16 +11,41 @@ import 'package:wave/wave.dart';
 import '../../../models/generic_inputs/my_button.dart';
 import 'content_A_introduction_page.dart';
 
-class ACSelectionPage3 extends StatelessWidget {
+class ACSelectionPage3 extends StatefulWidget {
   const ACSelectionPage3({super.key});
 
   @override
+  State<ACSelectionPage3> createState() => _ACSelectionPage3State();
+}
+
+class _ACSelectionPage3State extends State<ACSelectionPage3> {
+  bool _showCorrectAnswer = false;
+
+  final FlutterTts _flutterTts = FlutterTts();
+  Future<void> _speakText() async {
+    await _flutterTts.setLanguage("es-ES"); // Establecer el idioma
+    await _flutterTts.setPitch(1.0); // Ajustar el tono
+    await _flutterTts.speak("'Hmmm... Que si quiera deberia hacer?' Don Ramón, mientras que está anuente de la situación, no sabe por donde empezar. Mientras que desciende más el sitio, se encuentrá con un particular anuncio que describe exactamente lo que necesita.",);
+  }
+
+  @override
   Widget build(BuildContext context) {
+
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFB8D),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _speakText();
+            },
+            icon: const Icon(Icons.volume_up_outlined),
+            color: Colors.black,
+            tooltip: "Activar narrador",
+          )
+        ],
         leading:  BackButton(
           color: Colors.black,
           onPressed: () {
@@ -28,7 +55,7 @@ class ACSelectionPage3 extends StatelessWidget {
                 title: "Advertencia",
                 text: "Estás seguro que deseas salir del juego? Perderás tu progreso!",
                 confirmBtnColor: const Color(0xFF044389),
-                confirmBtnText: "Continuar",
+                confirmBtnText: "OK",
                 cancelBtnText: "Cancelar",
                 onConfirmBtnTap: () {
                   Navigator.pushReplacement(
@@ -129,14 +156,21 @@ class ACSelectionPage3 extends StatelessWidget {
                     buttonColor: const Color(0xFFFFFB8D),
                     buttonIconColor: Colors.black,
                     buttonIcon: Icons.warning_amber,
-                    onTap: () => {
-                      Navigator.pushReplacement(
+                    onTap: () {
+                      setState(() {
+                        _showCorrectAnswer = true;
+                      });
+
+                      Future.delayed(const Duration(milliseconds: 1500), () {
+                        Navigator.pushReplacement(
                           context,
                           PageTransition(
-                              child: const ACIntermissionPage4(),
-                              type: PageTransitionType.fade
-                          )
-                      )
+                            child: const ACIntermissionPage4(),
+                            type: PageTransitionType.rightToLeftJoined,
+                            childCurrent: widget,
+                          ),
+                        );
+                      });
                     },
                     insertText: "Sigue scrolleando en\n la página, hasta que..."
                 ),
@@ -146,6 +180,26 @@ class ACSelectionPage3 extends StatelessWidget {
             ],
           ),
         ),
+          if (_showCorrectAnswer)
+            Positioned.fill(
+              child: Container(
+                color: Colors.green,
+                child: Center(
+                  child: const Text(
+                    "Respuesta correcta!",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ).animate()
+                      .fade(duration: 300.ms)
+                      .scaleXY(begin: 0.7, end: 1, duration: 300.ms)
+                      .then(delay: 700.ms)
+                      .fade(duration: 300.ms, end: 0),
+                ),
+              ),
+            ),
         ]
       ),
     );

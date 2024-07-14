@@ -18,7 +18,7 @@ class ACBadEndingPage1 extends StatelessWidget {
         centerTitle: true,
         title: const Text("Game Over", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.indigoAccent,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

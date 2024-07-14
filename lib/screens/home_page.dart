@@ -5,14 +5,13 @@ import 'package:sentinel/helpers/auth.dart';
 import 'package:sentinel/helpers/user_repo.dart';
 import 'package:sentinel/models/generic_inputs/my_button.dart';
 import 'package:sentinel/models/user_data.dart';
-import 'package:sentinel/screens/content/adult_story/content_A_introduction_page.dart';
-import 'package:sentinel/screens/login_page.dart';
+import 'package:sentinel/screens/about_page.dart';
+import 'package:sentinel/screens/content/adult_story/a_story_select_page.dart';
 import 'package:sentinel/screens/register_verification_page.dart';
 import 'package:toastification/toastification.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
-import 'content/kid_story/content_K_introduction_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,6 +48,13 @@ class _HomePageState extends State<HomePage> {
     } else {
       return;
     }
+  }
+
+  @override
+  void initState() {
+
+    // TODO: implement initState
+    super.initState();
   }
 
 
@@ -114,9 +120,9 @@ class _HomePageState extends State<HomePage> {
 
 
                           if (age > 7) {
-                            Navigator.pushReplacement(context, PageTransition(child: const ACIntroductionPage(), type: PageTransitionType.bottomToTop,));
+                            Navigator.pushReplacement(context, PageTransition(child: const AdultStorySelectPage(), type: PageTransitionType.bottomToTop,));
                           } if (age > 18) {
-                            Navigator.pushReplacement(context, PageTransition(child: const ACIntroductionPage(), type: PageTransitionType.bottomToTop,));
+                            Navigator.pushReplacement(context, PageTransition(child: const AdultStorySelectPage(), type: PageTransitionType.bottomToTop,));
                           } else {
                             toastification.show(
                                 context: context,
@@ -129,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                           }
 
                         },
-                        insertText: "Jugar",
+                        insertText: "Entrar",
                         textSize: 26,
                     ),
                   )
@@ -144,12 +150,21 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                        width: 89,
+                        width: 110,
                         height: 140,
                         // OPCIONES
                         child: MyButton(
                             buttonIcon: Icons.settings,
-                            onTap: () => {  },
+                            onTap: () => {
+                            toastification.show(
+                            context: context,
+                            title: const Text("Mantenimiento", style: TextStyle(fontWeight: FontWeight.bold)),
+                            autoCloseDuration: const Duration(seconds: 10),
+                            description: const Text("Todavía no hay nada que hacer una opcion, pero pronto lo habrá, es bueno tener opciones. :)", style: TextStyle(fontWeight: FontWeight.bold),),
+                            type: ToastificationType.info,
+                            style: ToastificationStyle.flatColored
+                            )
+                            },
                             insertText: "Opciones"
                         ),
                       ),
@@ -161,17 +176,17 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      MyButton(
-                        direction: Axis.horizontal,
-                          buttonIcon: Icons.group,
-                          onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage())) },
-                          insertText: "Créditos"
-                      ),
+
                       const SizedBox(height: 1),
-                      MyButton(
-                          direction: Axis.horizontal,
-                          onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage())) },
-                          insertText: "Acerca De"
+                      SizedBox(
+                        height: 140,
+                        width: 110,
+                        child: MyButton(
+                            onTap: () => {
+                            Navigator.push(context, PageTransition(child: const AboutPage(), type: PageTransitionType.bottomToTop,))
+                            },
+                            insertText: "Acerca De"
+                        ),
                       ),
 
 
@@ -183,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                        width: 89,
+                        width: 110,
                         height: 140,
                         child: MyButton(
                             buttonIcon: Icons.logout_outlined,

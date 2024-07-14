@@ -54,8 +54,8 @@ class FirebaseAuthServices{
 
     try {
       await _firebaseAuth.currentUser?.sendEmailVerification();
-    } on FirebaseAuthException catch (e)  {
-      print(e.message);
+    } on FirebaseAuthException {
+
     }
 
   }

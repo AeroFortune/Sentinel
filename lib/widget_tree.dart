@@ -10,18 +10,15 @@ class WidgetTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     bool? status = FirebaseAuthServices().currentUser?.emailVerified;
 
     return StreamBuilder(
         stream: FirebaseAuthServices().authStateChanges,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-
             if (status == false) {
               return ShowCaseWidget(builder: (context) => const LoginPage());
             }
-
             return const HomePage();
           } else {
             return const LoginPage();

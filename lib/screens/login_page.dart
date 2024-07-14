@@ -24,22 +24,46 @@ class _LoginPageState extends State<LoginPage> {
   String? errorMessage = '';
   bool isLogin = true;
 
+  bool isPasswordValid(String password) {
+    // Ejemplo de validación: mínimo 8 caracteres, al menos una letra y un número
+    if (password.length < 9) return false;
+
+    bool hasLetter = password.contains(RegExp(r'[a-zA-Z]'));
+    bool hasNumber = password.contains(RegExp(r'[0-9]'));
+
+    return hasLetter && hasNumber;
+  }
+
   Future<void> signInWithEmailAndPassword() async {
     try {
+      // Validar la contraseña
+      String password = _controllerPassword.text.trim();
+      if (!isPasswordValid(password)) {
+        toastification.show(
+          context: context,
+          title: const Text("Error al iniciar sesión!", style: TextStyle(fontWeight: FontWeight.bold)),
+          autoCloseDuration: const Duration(seconds: 10),
+          description: const Text("Credenciales invalidas.", style: TextStyle(fontWeight: FontWeight.bold)),
+          type: ToastificationType.error,
+          style: ToastificationStyle.flatColored,
+        );
+        return;
+      }
+
       await FirebaseAuthServices().signInWithEmailAndPassword(
-          email: _controllerEmail.text.trim(),
-          password: _controllerPassword.text.trim()
+        email: _controllerEmail.text.trim(),
+        password: password,
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
-        if (_controllerPassword.text.trim() == "" || _controllerEmail.text.trim() == "" ){
+        if (_controllerPassword.text.trim() == "" || _controllerEmail.text.trim() == "") {
           toastification.show(
-              context: context,
-              title: const Text("Error al iniciar sesión!", style: TextStyle(fontWeight: FontWeight.bold)),
-              autoCloseDuration: const Duration(seconds: 10),
-              description: const Text("Uno o más campos no han sido llenados. \nPor favor llenarlos e re-intentar.", style: TextStyle(fontWeight: FontWeight.bold),),
-              type: ToastificationType.error,
-              style: ToastificationStyle.flatColored
+            context: context,
+            title: const Text("Error al iniciar sesión!", style: TextStyle(fontWeight: FontWeight.bold)),
+            autoCloseDuration: const Duration(seconds: 10),
+            description: const Text("Uno o más campos no han sido llenados. \nPor favor llenarlos e re-intentar.", style: TextStyle(fontWeight: FontWeight.bold)),
+            type: ToastificationType.error,
+            style: ToastificationStyle.flatColored,
           );
           return;
         } if (e.code == "invalid-credential") {
@@ -74,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
               style: ToastificationStyle.fillColored
           );
           return;
-      } if (e.code == "invalid-email") {
+        } if (e.code == "invalid-email") {
           toastification.show(
               context: context,
               title: const Text("Error al iniciar sesión!",
@@ -98,9 +122,7 @@ class _LoginPageState extends State<LoginPage> {
           return;
         }
 
-
       });
-
     }
   }
 

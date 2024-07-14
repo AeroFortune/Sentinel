@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -9,8 +11,22 @@ import 'package:wave/wave.dart';
 import '../../../models/generic_inputs/my_button.dart';
 import 'content_A_introduction_page.dart';
 
-class ACSelectionPage4 extends StatelessWidget {
+class ACSelectionPage4 extends StatefulWidget {
   const ACSelectionPage4({super.key});
+
+  @override
+  State<ACSelectionPage4> createState() => _ACSelectionPage4State();
+}
+
+class _ACSelectionPage4State extends State<ACSelectionPage4> {
+  bool _showCorrectAnswer = false;
+  final FlutterTts _flutterTts = FlutterTts();
+  Future<void> _speakText() async {
+    await _flutterTts.setLanguage("es-ES"); // Establecer el idioma
+    await _flutterTts.setPitch(1.0); // Ajustar el tono
+    await _flutterTts.speak("'Este sitio es bastante legitimo... y al insertar mi email, confirmé mis temores... muchas de los sitios que uso han sido hackeados!' Deberia cambiarle la contraseñas a todos respectivamente, pero... ¿Cúal sería una segurá? Y que se me haga fácil de recordar...",);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +35,16 @@ class ACSelectionPage4 extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFB8D),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _speakText();
+            },
+            icon: const Icon(Icons.volume_up_outlined),
+            color: Colors.black,
+            tooltip: "Activar narrador",
+          )
+        ],
         leading:  BackButton(
           color: Colors.black,
           onPressed: () {
@@ -28,7 +54,7 @@ class ACSelectionPage4 extends StatelessWidget {
                 title: "Advertencia",
                 text: "Estás seguro que deseas salir del juego? Perderás tu progreso!",
                 confirmBtnColor: const Color(0xFF044389),
-                confirmBtnText: "Continuar",
+                confirmBtnText: "OK",
                 cancelBtnText: "Cancelar",
                 onConfirmBtnTap: () {
                   Navigator.pushReplacement(
@@ -108,14 +134,21 @@ class ACSelectionPage4 extends StatelessWidget {
                     buttonColor: const Color(0xFFFFFB8D),
                     buttonIconColor: Colors.black,
                     buttonIcon: Icons.policy_outlined,
-                    onTap: () => {
-                      Navigator.pushReplacement(
+                    onTap: () {
+                      setState(() {
+                        _showCorrectAnswer = true;
+                      });
+
+                      Future.delayed(const Duration(milliseconds: 1500), () {
+                        Navigator.pushReplacement(
                           context,
                           PageTransition(
-                              child: const ACIntermissionPageEpilogue(),
-                              type: PageTransitionType.fade
-                          )
-                      )
+                            child: const ACIntermissionPageEpilogue(),
+                            type: PageTransitionType.rightToLeftJoined,
+                            childCurrent: widget,
+                          ),
+                        );
+                      });
                     },
                     insertText: "Investigar lo recomendado"
                 ),
@@ -147,6 +180,26 @@ class ACSelectionPage4 extends StatelessWidget {
             ],
           ),
         ),
+          if (_showCorrectAnswer)
+            Positioned.fill(
+              child: Container(
+                color: Colors.green,
+                child: Center(
+                  child: const Text(
+                    "Respuesta correcta!",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ).animate()
+                      .fade(duration: 300.ms)
+                      .scaleXY(begin: 0.7, end: 1, duration: 300.ms)
+                      .then(delay: 700.ms)
+                      .fade(duration: 300.ms, end: 0),
+                ),
+              ),
+            ),
         ]
       ),
     );

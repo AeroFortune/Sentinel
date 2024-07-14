@@ -60,6 +60,17 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
+  bool isPasswordValid(String password) {
+    // Ejemplo de validación: mínimo 8 caracteres, al menos una letra y un número
+    if (password.length < 9) return false;
+
+    bool hasLetter = password.contains(RegExp(r'[a-zA-Z]'));
+    bool hasNumber = password.contains(RegExp(r'[0-9]'));
+
+    return hasLetter && hasNumber;
+  }
+
+
   Future<void> createUserWithEmailAndPassword() async {
     try {
 
@@ -81,6 +92,16 @@ class _RegisterPageState extends State<RegisterPage> {
             description: const Text("Uno o más campos no han sido llenados. \nPor favor llenarlos e re-intentar.", style: TextStyle(fontWeight: FontWeight.bold),),
             type: ToastificationType.error,
             style: ToastificationStyle.flatColored
+        );
+        return;
+      } if (!isPasswordValid(_controllerPassword.text.trim())) {
+        toastification.show(
+          context: context,
+          title: const Text("Error al registrarse!", style: TextStyle(fontWeight: FontWeight.bold)),
+          autoCloseDuration: const Duration(seconds: 10),
+          description: const Text("La contraseña debe tener al menos 9 caracteres, incluyendo letras y números.", style: TextStyle(fontWeight: FontWeight.bold)),
+          type: ToastificationType.error,
+          style: ToastificationStyle.flatColored,
         );
         return;
       } else {
@@ -388,7 +409,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               title: "Advertencia",
                               text: "Asegurate que tus datos esten correctos. Tu fecha de nacimiento afectará el contenido que veas. Deseas continuar?",
                               confirmBtnColor: const Color(0xFF044389),
-                              confirmBtnText: "Continuar",
+                              confirmBtnText: "OK",
                               cancelBtnText: "Cancelar",
                               onConfirmBtnTap: () => createUserWithEmailAndPassword()
                             );

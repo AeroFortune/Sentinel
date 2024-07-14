@@ -100,7 +100,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
           controller: _pageController,
           itemBuilder: (context, index){
             return Container(
-              margin: const EdgeInsets.only(left: 25, right: 25, top: 90, bottom: 150),
+              margin: const EdgeInsets.only(left: 25, right: 25, top: 25, bottom: 150),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -125,8 +125,9 @@ class _IntroductionPageState extends State<IntroductionPage> {
   Widget getStarted(){
     return SizedBox(
         width: MediaQuery.of(context).size.width * .9,
-        height: 48,
+        height: 60,
         child: MyButton(
+          direction: Axis.horizontal,
           onTap: () async {
             final pres = await SharedPreferences.getInstance();
             pres.setBool("first_time_started", true);

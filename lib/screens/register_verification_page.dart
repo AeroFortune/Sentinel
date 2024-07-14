@@ -86,6 +86,15 @@ class _RegisterVerificationPageState extends State<RegisterVerificationPage> {
             type: PageTransitionType.fade,
           )
       );
+    } else {
+      toastification.show(
+        context: context,
+        title: const Text("Verificación pendiente", style: TextStyle(fontWeight: FontWeight.bold)),
+        autoCloseDuration: const Duration(seconds: 10),
+        description: const Text("Tu correo electrónico aún no ha sido verificado. Por favor revisa tu bandeja de entrada.", style: TextStyle(fontWeight: FontWeight.bold)),
+        type: ToastificationType.error,
+        style: ToastificationStyle.flatColored,
+      );
     }
   }
 
@@ -135,7 +144,7 @@ class _RegisterVerificationPageState extends State<RegisterVerificationPage> {
           SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -144,12 +153,16 @@ class _RegisterVerificationPageState extends State<RegisterVerificationPage> {
                   const SizedBox(height: 10,),
                   const Text("A continuación, hemos enviado un email a tu correo electronico. Por favor verificalo e ingresa al enlace para poder activar tu cuenta.",
                   softWrap: true, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+                  const Text("La pantalla se refrescará automáticamente cuando confirmes tu e-mail. De no ser así, presiona el siguiente botón para re-intentar la verificación manualmente.",
+                      softWrap: true, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
                   const SizedBox(height: 150,),
                   SizedBox(
                     width: 250,
                     child: MyButton(
                         onTap: () => manuallyCheckVerificationStatus(),
-                        insertText: "Verificar manualmente."
+                        insertText: "Re-intentar Verificación",
+                      direction: Axis.horizontal,
                     ),
                   )
                 ],

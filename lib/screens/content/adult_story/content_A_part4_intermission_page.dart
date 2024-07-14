@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -9,10 +10,21 @@ import 'package:sentinel/screens/content/adult_story/content_A_part4_selection_p
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
-class ACIntermissionPage4 extends StatelessWidget {
+class ACIntermissionPage4 extends StatefulWidget {
   const ACIntermissionPage4({super.key});
 
+  @override
+  State<ACIntermissionPage4> createState() => _ACIntermissionPage4State();
+}
 
+class _ACIntermissionPage4State extends State<ACIntermissionPage4> {
+
+  final FlutterTts _flutterTts = FlutterTts();
+  Future<void> _speakText() async {
+    await _flutterTts.setLanguage("es-ES"); // Establecer el idioma
+    await _flutterTts.setPitch(1.0); // Ajustar el tono
+    await _flutterTts.speak("'Me leyo la mente... Es *casi* muy conveniente al punto de ser sospechoso, asi que lo ignoraré.' Don Ramón siguió navegando hasta encontrar recomendaciones oficiales del sitio, principalmente un sitio para detectar cuentas hackeadas, llamado HaveIBeenPwned, al cual decide entrar.",);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +32,16 @@ class ACIntermissionPage4 extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFB8D),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _speakText();
+            },
+            icon: const Icon(Icons.volume_up_outlined),
+            color: Colors.black,
+            tooltip: "Activar narrador",
+          )
+        ],
         leading:  BackButton(
           color: Colors.black,
           onPressed: () {
@@ -29,7 +51,7 @@ class ACIntermissionPage4 extends StatelessWidget {
                 title: "Advertencia",
                 text: "Estás seguro que deseas salir del juego? Perderás tu progreso!",
                 confirmBtnColor: const Color(0xFF044389),
-                confirmBtnText: "Continuar",
+                confirmBtnText: "OK",
                 cancelBtnText: "Cancelar",
                 onConfirmBtnTap: () {
                   Navigator.pushReplacement(
@@ -106,11 +128,11 @@ class ACIntermissionPage4 extends StatelessWidget {
                           context,
                           PageTransition(
                             child: const ACSelectionPage4(),
-                            type: PageTransitionType.rightToLeftJoined, childCurrent: this
+                            type: PageTransitionType.rightToLeftJoined, childCurrent: widget
                           )
                       )
                     },
-                    insertText: "Continuar"
+                    insertText: "OK"
                 ),
               )
             ],

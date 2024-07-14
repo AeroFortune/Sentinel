@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'package:sentinel/models/generic_inputs/my_button.dart';
@@ -8,9 +9,14 @@ import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
 class ACIntermissionPage1 extends StatelessWidget {
-  const ACIntermissionPage1({super.key});
+  ACIntermissionPage1({super.key});
 
-
+  final FlutterTts _flutterTts = FlutterTts();
+  Future<void> _speakText() async {
+    await _flutterTts.setLanguage("es-ES"); // Establecer el idioma
+    await _flutterTts.setPitch(1.0); // Ajustar el tono
+    await _flutterTts.speak("Don Ramón, un jubilado de 70 años, vive solo en su casa y disfruta de pasar el tiempo navegando por internet y leyendo correos electrónicos de sus amigos y familiares. Una mañana, mientras revisa su bandeja de entrada, recibe un correo inesperado.");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +35,16 @@ class ACIntermissionPage1 extends StatelessWidget {
             );
           },
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _speakText();
+            },
+            icon: const Icon(Icons.volume_up_outlined),
+            color: Colors.black,
+            tooltip: "Activar narrador",
+          )
+        ],
         title: const Text("Historia", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
       ),
       backgroundColor: const Color(0xFF044389),

@@ -37,7 +37,7 @@ class ContentBranchPage extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 28,
+                      fontSize: 18,
                       letterSpacing: -1
                   ),
                 ),
@@ -52,14 +52,14 @@ class ContentBranchPage extends StatelessWidget {
                     child:
                     MyButton(
                         direction: Axis.vertical,
-                        textSize: 25,
+                        textSize: 16,
                         buttonIconSize: 40,
                         buttonIcon: Icons.chrome_reader_mode_outlined,
                         onTap: () => {
                           Navigator.pushReplacement(
                               context,
                               PageTransition(
-                                  child: const ACIntermissionPage1(),
+                                  child: ACIntermissionPage1(),
                                   type: PageTransitionType.rightToLeftJoined, childCurrent: this
                               )
                           )
@@ -74,7 +74,7 @@ class ContentBranchPage extends StatelessWidget {
                     child:
                     MyButton(
                         direction: Axis.vertical,
-                        textSize: 25,
+                        textSize: 16,
                         buttonIconSize: 40,
                         buttonIcon: Icons.select_all,
                         onTap: () => {
@@ -102,7 +102,7 @@ class ContentBranchPage extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 28,
+                      fontSize: 18,
                       letterSpacing: -1
                   ),
                 ),
@@ -118,7 +118,7 @@ class ContentBranchPage extends StatelessWidget {
                     child:
                     MyButton(
                         direction: Axis.vertical,
-                        textSize: 25,
+                        textSize: 16,
                         buttonIconSize: 40,
                         buttonIcon: Icons.chrome_reader_mode_outlined,
                         onTap: () => {
@@ -140,7 +140,7 @@ class ContentBranchPage extends StatelessWidget {
                     child:
                     MyButton(
                         direction: Axis.vertical,
-                        textSize: 25,
+                        textSize: 16,
                         buttonIconSize: 40,
                         buttonIcon: Icons.select_all,
                         onTap: () => {
@@ -168,7 +168,7 @@ class ContentBranchPage extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 28,
+                      fontSize: 18,
                       letterSpacing: -1
                   ),
                 ),
@@ -184,7 +184,7 @@ class ContentBranchPage extends StatelessWidget {
                     child:
                     MyButton(
                         direction: Axis.vertical,
-                        textSize: 25,
+                        textSize: 16,
                         buttonIconSize: 40,
                         buttonIcon: Icons.chrome_reader_mode_outlined,
                         onTap: () => {
@@ -206,7 +206,7 @@ class ContentBranchPage extends StatelessWidget {
                     child:
                     MyButton(
                         direction: Axis.vertical,
-                        textSize: 25,
+                        textSize: 16,
                         buttonIconSize: 40,
                         buttonIcon: Icons.select_all,
                         onTap: () => {
@@ -235,7 +235,7 @@ class ContentBranchPage extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 28,
+                      fontSize: 18,
                       letterSpacing: -1
                   ),
                 ),
@@ -251,7 +251,7 @@ class ContentBranchPage extends StatelessWidget {
                     child:
                     MyButton(
                         direction: Axis.vertical,
-                        textSize: 25,
+                        textSize: 16,
                         buttonIconSize: 40,
                         buttonIcon: Icons.chrome_reader_mode_outlined,
                         onTap: () => {
@@ -273,7 +273,7 @@ class ContentBranchPage extends StatelessWidget {
                     child:
                     MyButton(
                         direction: Axis.vertical,
-                        textSize: 25,
+                        textSize: 16,
                         buttonIconSize: 40,
                         buttonIcon: Icons.select_all,
                         onTap: () => {
@@ -301,7 +301,7 @@ class ContentBranchPage extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 28,
+                      fontSize: 18,
                       letterSpacing: -1
                   ),
                 ),
@@ -317,7 +317,7 @@ class ContentBranchPage extends StatelessWidget {
                     child:
                     MyButton(
                         direction: Axis.vertical,
-                        textSize: 25,
+                        textSize: 16,
                         buttonIconSize: 40,
                         buttonIcon: Icons.security,
                         onTap: () => {
@@ -339,7 +339,7 @@ class ContentBranchPage extends StatelessWidget {
                     child:
                     MyButton(
                         direction: Axis.vertical,
-                        textSize: 25,
+                        textSize: 16,
                         buttonIconSize: 40,
                         buttonIcon: Icons.flag,
                         onTap: () => {

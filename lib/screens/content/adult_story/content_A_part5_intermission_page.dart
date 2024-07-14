@@ -20,7 +20,7 @@ class ACIntermissionPageEpilogue extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFB8D),
         centerTitle: true,
-        leading:  BackButton(
+        leading: BackButton(
           color: Colors.black,
           onPressed: () {
             QuickAlert.show(
@@ -29,7 +29,7 @@ class ACIntermissionPageEpilogue extends StatelessWidget {
                 title: "Advertencia",
                 text: "Estás seguro que deseas salir del juego? Perderás tu progreso!",
                 confirmBtnColor: const Color(0xFF044389),
-                confirmBtnText: "Continuar",
+                confirmBtnText: "OK",
                 cancelBtnText: "Cancelar",
                 onConfirmBtnTap: () {
                   Navigator.pushReplacement(
@@ -110,7 +110,7 @@ class ACIntermissionPageEpilogue extends StatelessWidget {
                           )
                       )
                     },
-                    insertText: "Continuar"
+                    insertText: "OK"
                 ),
               )
             ],

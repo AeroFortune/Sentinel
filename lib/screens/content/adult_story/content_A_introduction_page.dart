@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sentinel/models/generic_inputs/my_button.dart';
 import 'package:sentinel/screens/content/adult_story/content_A_part1_intermission_page.dart';
@@ -19,6 +20,12 @@ class ACIntroductionPage extends StatefulWidget {
 
 class _ACIntroductionPageState extends State<ACIntroductionPage> {
 
+  final FlutterTts _flutterTts = FlutterTts();
+  Future<void> _speakText() async {
+    await _flutterTts.setLanguage("es-ES"); // Establecer el idioma
+    await _flutterTts.setPitch(1.0); // Ajustar el tono
+    await _flutterTts.speak("Adentrate en la historia de Don Ramon, un ciudadano promedio de la vida cotidiana, que se involucra en una historia que lo pone en las manos de los riesgos de ciber-seguridad...");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +39,21 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
         leading: BackButton(
           color: Colors.white,
           onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                PageTransition(
-                    child: const HomePage(),
-                    type: PageTransitionType.fade
-                )
+            Navigator.pushAndRemoveUntil(
+              context,
+              PageTransition(
+                  child: const HomePage(),
+                  type: PageTransitionType.fade
+              ),
+              (route) => false,
             );
           },
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _speakText();
+            },
             icon: const Icon(Icons.volume_up_outlined),
             color: Colors.white,
             tooltip: "Activar narrador",
@@ -154,7 +164,7 @@ class _ACIntroductionPageState extends State<ACIntroductionPage> {
                               Navigator.push(
                                 context,
                                 PageTransition(
-                                  child: const ACIntermissionPage1(),
+                                  child: ACIntermissionPage1(),
                                   type: PageTransitionType.leftToRightJoined, childCurrent: widget
                                 )
                             );
